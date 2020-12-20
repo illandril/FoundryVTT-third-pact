@@ -1,3 +1,7 @@
+## [v1.0.3](https://github.com/illandril/FoundryVTT-third-pact/releases/tag/v1.0.3) (2020-12-20)
+**Fixed Bugs:**
+* Increases support version to 0.7.9
+
 ## [v1.0.2](https://github.com/illandril/FoundryVTT-third-pact/releases/tag/v1.0.2) (2020-11-08)
 **Fixed Bugs:**
 * Increases support version to 0.7.6
