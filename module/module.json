@@ -20,7 +20,7 @@
   "dependencies": [],
   "conflicts": [],
   "esmodules": ["./init.js"],
-  "styles": ["./styles.css"],
+  "styles": [],
   "languages": [{ "lang": "en", "name": "English", "path": "lang/en.json" }],
   "license": "./LICENSE",
   "url": "https://github.com/illandril/FoundryVTT-third-pact",
