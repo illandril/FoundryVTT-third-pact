@@ -6,15 +6,3 @@ Having levels in a Third Caster (Pact) classes will provide a character with Pac
 1. Standard Rounding (round down when multiclassing with other Pact Magic classes, round up otherwise; similar to non-Pact Third Casters)
 1. Always Round Up
 1. Always Round Down (ex. [Blood Hunter Order of the Profane Soul](https://www.dndbeyond.com/classes/blood-hunter#OrderoftheProfaneSoul))
-
-# Installation
-1. Open the Configuration and Setup for your FoundryVTT server
-1. Open the Add-on Modules Tab
-1. Click the Install Module button
-1. In the Manifest URL input, specify https://github.com/illandril/FoundryVTT-third-pact/releases/latest/download/module.json
-1. Click Install
-1. Launch your world
-1. Log in as the GM
-1. Open the Settings tab
-1. Click Manage Modules
-1. Check the checkbox for Illandril's Pact Slot Third Caster (5e)
