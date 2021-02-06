@@ -1,27 +1,11 @@
-const MODULE_NAME = 'illandril-third-pact';
+import { KEY as MODULE_NAME } from './module.js';
+
 const SETTING_ROUNDING = 'roundingMode';
 const SETTING_ROUNDING__STANDARD = 'standard';
 const SETTING_ROUNDING__DOWN = 'down';
 const SETTING_ROUNDING__UP = 'up';
 
 const THIRD_PACT_TYPE = 'illandril_thirdpact';
-
-function refreshPactSlots() {
-  game.actors.forEach((actor) => {
-    const pactClass = actor.items.find((item) => {
-      if (item.type === 'class') {
-        const itemData = item.data.data;
-        if (itemData.spellcasting === 'pact' || itemData.spellcasting === THIRD_PACT_TYPE) {
-          return true;
-        }
-      }
-    });
-    if (pactClass) {
-      derivePactSlots(actor.data);
-      actor.render(false);
-    }
-  });
-}
 
 Hooks.once('init', () => {
   CONFIG.DND5E.spellProgression[THIRD_PACT_TYPE] = 'illandril-third-pact.thirdpact';
@@ -48,7 +32,24 @@ Hooks.once('init', () => {
   };
 });
 
-function derivePactSlots(actorData) {
+const refreshPactSlots = () => {
+  game.actors.forEach((actor) => {
+    const pactClass = actor.items.find((item) => {
+      if (item.type === 'class') {
+        const itemData = item.data.data;
+        if (itemData.spellcasting === 'pact' || itemData.spellcasting === THIRD_PACT_TYPE) {
+          return true;
+        }
+      }
+    });
+    if (pactClass) {
+      derivePactSlots(actor.data);
+      actor.render(false);
+    }
+  });
+};
+
+const derivePactSlots = (actorData) => {
   if (actorData.type !== 'character') {
     // Third-pact caster calculation is only supported for players
     return;
@@ -62,9 +63,9 @@ function derivePactSlots(actorData) {
       calculatePactSlots(actorData.data.spells, pactLevels);
     }
   }
-}
+};
 
-function countPactLevels(actorData) {
+const countPactLevels = (actorData) => {
   let fullLevels = 0;
   let thirdLevels = 0;
   let classes = 0;
@@ -82,17 +83,17 @@ function countPactLevels(actorData) {
     }
   });
   return { fullLevels, thirdLevels, isMultiClass: classes > 1 };
-}
+};
 
-function calculateEffectiveLevels(isMultiClass, fullLevels, thirdLevels) {
+const calculateEffectiveLevels = (isMultiClass, fullLevels, thirdLevels) => {
   let levels = fullLevels;
   if (thirdLevels > 0) {
     levels += roundThirdLevels(isMultiClass, thirdLevels);
   }
   return Math.clamped(levels, 0, 20);
-}
+};
 
-function roundThirdLevels(isMultiClass, levels) {
+const roundThirdLevels = (isMultiClass, levels) => {
   const roundingMode = game.settings.get(MODULE_NAME, SETTING_ROUNDING);
   let roundDown;
   switch (roundingMode) {
@@ -111,9 +112,9 @@ function roundThirdLevels(isMultiClass, levels) {
   } else {
     return Math.ceil(levels / 3);
   }
-}
+};
 
-function calculatePactSlots(spells, effectivePactLevel) {
+const calculatePactSlots = (spells, effectivePactLevel) => {
   spells.pact = spells.pact || {};
   spells.pact.level = Math.ceil(Math.min(10, effectivePactLevel) / 2);
   const pactOverride = parseInt(spells.pact.override, 10);
@@ -132,4 +133,4 @@ function calculatePactSlots(spells, effectivePactLevel) {
     }
   }
   spells.pact.value = Math.min(spells.pact.value, spells.pact.max);
-}
+};

@@ -4,5 +4,8 @@
   "illandril-third-pact.roundingModeHint": "Standard Rounding: Round down when multiclassing with other Pact caster classes, round up otherwise (the same as non-Pact Third Casters).",
   "illandril-third-pact.roundingMode-Standard": "Standard Rounding",
   "illandril-third-pact.roundingMode-Up": "Always Round Up",
-  "illandril-third-pact.roundingMode-Down": "Always Round Down"
+  "illandril-third-pact.roundingMode-Down": "Always Round Down",
+
+  "illandril-third-pact.hitDice.name.d4": "Hit Dice: Include d4",
+  "illandril-third-pact.hitDice.name.d20": "Hit Dice: Include d20"
 }
