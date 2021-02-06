@@ -6,3 +6,5 @@ Having levels in a Third Caster (Pact) classes will provide a character with Pac
 1. Standard Rounding (round down when multiclassing with other Pact Magic classes, round up otherwise; similar to non-Pact Third Casters)
 1. Always Round Up
 1. Always Round Down (ex. [Blood Hunter Order of the Profane Soul](https://www.dndbeyond.com/classes/blood-hunter#OrderoftheProfaneSoul))
+
+This module also adds the option to add d4 and d20 to the "Hit Dice" options when configuring classes.
