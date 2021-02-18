@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.1.1](https://github.com/illandril/FoundryVTT-third-pact/tree/v1.1.1) (2021-02-18)
+
+[Full Changelog](https://github.com/illandril/FoundryVTT-third-pact/compare/v1.1.0...v1.1.1)
+
+**Enhancements**
+
+- Add support for Bug Reporter [\#4](https://github.com/illandril/FoundryVTT-third-pact/issues/4)
+
 ## [v1.1.0](https://github.com/illandril/FoundryVTT-third-pact/tree/v1.1.0) (2021-02-06)
 
 [Full Changelog](https://github.com/illandril/FoundryVTT-third-pact/compare/v1.0.3...v1.1.0)
