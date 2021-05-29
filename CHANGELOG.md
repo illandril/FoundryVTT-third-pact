@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.2.0](https://github.com/illandril/FoundryVTT-third-pact/tree/v1.2.0) (2021-05-29)
+
+[Full Changelog](https://github.com/illandril/FoundryVTT-third-pact/compare/v1.1.1...v1.2.0)
+
+**Other&nbsp;Changes**
+
+- Support Foundry 0.8.x [\#5](https://github.com/illandril/FoundryVTT-third-pact/issues/5)
+- auto read a character sheet for the right settings [\#3](https://github.com/illandril/FoundryVTT-third-pact/issues/3)
+
 ## [v1.1.1](https://github.com/illandril/FoundryVTT-third-pact/tree/v1.1.1) (2021-02-18)
 
 [Full Changelog](https://github.com/illandril/FoundryVTT-third-pact/compare/v1.1.0...v1.1.1)
