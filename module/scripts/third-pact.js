@@ -72,11 +72,15 @@ const countPactLevels = (actorData) => {
 
   actorData.items.forEach((item) => {
     if (item.type === 'class') {
-      const itemData = item.data;
-      if (itemData.spellcasting === 'pact') {
+      const itemData = item.data.data;
+      let progression = itemData.spellcasting;
+      if(typeof progression === 'object') {
+        progression = progression.progression;
+      }
+      if (progression === 'pact') {
         classes++;
         fullLevels += itemData.levels;
-      } else if (itemData.spellcasting === THIRD_PACT_TYPE) {
+      } else if (progression === THIRD_PACT_TYPE) {
         classes++;
         thirdLevels += itemData.levels;
       }
