@@ -6,6 +6,13 @@
   "illandril-third-pact.roundingMode-Up": "Always Round Up",
   "illandril-third-pact.roundingMode-Down": "Always Round Down",
 
+  "illandril-third-pact.illandril_custompact_a.name": "Custom Pact Caster A",
+  "illandril-third-pact.illandril_custompact_a.hint": "Custom Pact Caster classes WILL NOT multiclass properly with other Pact Caster classes. See https://github.com/illandril/FoundryVTT-third-pact/issues/6 for details on how to use this option.",
+  "illandril-third-pact.illandril_custompact_b.name": "Custom Pact Caster B",
+  "illandril-third-pact.illandril_custompact_b.hint": "Custom Pact Caster classes WILL NOT multiclass properly with other Pact Caster classes. See https://github.com/illandril/FoundryVTT-third-pact/issues/6 for details on how to use this option.",
+  "illandril-third-pact.illandril_custompact_c.name": "Custom Pact Caster C",
+  "illandril-third-pact.illandril_custompact_c.hint": "Custom Pact Caster classes WILL NOT multiclass properly with other Pact Caster classes. See https://github.com/illandril/FoundryVTT-third-pact/issues/6 for details on how to use this option.",
+
   "illandril-third-pact.hitDice.name.d4": "Hit Dice: Include d4",
   "illandril-third-pact.hitDice.name.d20": "Hit Dice: Include d20"
 }
