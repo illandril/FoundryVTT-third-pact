@@ -30,8 +30,6 @@ const getCustomPactTypeOptions = (customPactType) => {
 };
 
 Hooks.once('init', () => {
-  CONFIG.DND5E.spellProgression[THIRD_PACT_TYPE] = `${MODULE_NAME}.thirdpact`;
-
   game.settings.register(MODULE_NAME, SETTING_ROUNDING, {
     name: game.i18n.localize(`${MODULE_NAME}.roundingMode`),
     hint: game.i18n.localize(`${MODULE_NAME}.roundingModeHint`),
@@ -57,6 +55,12 @@ Hooks.once('init', () => {
       type: String,
       onChange: refreshPactSlots,
     });
+  }
+});
+
+Hooks.once('ready', () => {
+  CONFIG.DND5E.spellProgression[THIRD_PACT_TYPE] = `${MODULE_NAME}.thirdpact`;
+  for (let customPactType of CUSTOM_PACT_TYPES) {
     CONFIG.DND5E.spellProgression[customPactType] = `${MODULE_NAME}.${customPactType}.name`;
   }
 

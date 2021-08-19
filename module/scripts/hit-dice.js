@@ -1,4 +1,4 @@
-import { KEY as MODULE_NAME } from './module.js';
+import { KEY as MODULE_NAME, log } from './module.js';
 
 const SETTING_HIT_DICE_D4 = 'hitDice-d4';
 const SETTING_HIT_DICE_D20 = 'hitDice-d20';
@@ -21,13 +21,15 @@ Hooks.once('init', () => {
     type: Boolean,
     onChange: refreshHitDice,
   });
+});
 
+Hooks.once('ready', () => {
   refreshHitDice();
 });
 
 const refreshHitDice = () => {
   if (!CONFIG || !CONFIG.DND5E || !Array.isArray(CONFIG.DND5E.hitDieTypes)) {
-    console.error("Can't update hit dice - CONFIG.DND5E.hitDieTypes wasn't an array as expected");
+    log.error("Can't update hit dice - CONFIG.DND5E.hitDieTypes wasn't an array as expected");
     return;
   }
   addRemoveHitDice(SETTING_HIT_DICE_D4, 'd4', true);
