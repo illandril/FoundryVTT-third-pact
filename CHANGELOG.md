@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.2.3](https://github.com/illandril/FoundryVTT-third-pact/tree/v1.2.3) (2021-08-19)
+
+[Full Changelog](https://github.com/illandril/FoundryVTT-third-pact/compare/v1.2.2...v1.2.3)
+
+**Other&nbsp;Changes**
+
+- Module doesn't work with latest Foundry and/or DnD5e system [\#7](https://github.com/illandril/FoundryVTT-third-pact/issues/7)
+
 ## [v1.2.2](https://github.com/illandril/FoundryVTT-third-pact/tree/v1.2.2) (2021-07-03)
 
 [Full Changelog](https://github.com/illandril/FoundryVTT-third-pact/compare/v1.2.1...v1.2.2)
