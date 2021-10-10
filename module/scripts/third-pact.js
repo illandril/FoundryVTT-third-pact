@@ -69,11 +69,13 @@ Hooks.once('ready', () => {
     basePrepareDerivedData.call(this);
     derivePactSlots(this.data);
   };
+  refreshPactSlots();
 });
 
 const refreshPactSlots = () => {
   log.debug('Refreshing Pact Slots');
   game.actors.forEach((actor) => {
+    log.debug(`Refreshing Pact Slots for ${actor.name}`);
     const pactClass = someSpellcastingClass(actor, (itemData, progression) => {
       return (
         progression === 'pact' ||
@@ -87,10 +89,11 @@ const refreshPactSlots = () => {
       actor.render(false);
     }
   });
+  log.debug('Done refreshing Pact Slots');
 };
 
 const someSpellcastingClass = (actorData, fn) => {
-  actorData.items.some((item) => {
+  return actorData.items.some((item) => {
     if (item.type === 'class') {
       const itemData = item.data.data;
       let progression = itemData.spellcasting;
@@ -105,6 +108,7 @@ const someSpellcastingClass = (actorData, fn) => {
 };
 
 const derivePactSlots = (actorData) => {
+  log.debug(`Deriving pact slots for ${actorData.name}`);
   if (actorData.type !== 'character') {
     // Third-pact caster calculation is only supported for players
     log.debug(`Actor[${actorData.name}] is not a character`);
@@ -131,6 +135,8 @@ const derivePactSlots = (actorData) => {
     const pactLevels = calculateEffectiveLevels(isMultiClass, fullLevels, thirdLevels);
     if (pactLevels > 0) {
       calculatePactSlots(spells, pactLevels);
+    } else {
+      log.debug(`Actor[${actorData.name}] doesn't have any levels in any one third-caster pact classes`);
     }
   }
 };
@@ -200,10 +206,12 @@ const calculatePactSlots = (spells, effectivePactLevel) => {
     }
   }
   spells.pact.value = Math.min(spells.pact.value, spells.pact.max);
+  log.debug(`Calculated pact slots for effectivePactLevel[${effectivePactLevel}]: ${JSON.stringify(spells.pact)}`);
 };
 
 const calculateCustomPactSlots = (spells, customPactClass, progression) => {
   const customPactOptions = getCustomPactTypeOptions(progression);
+  log.debug(`Custom pact options for [${progression}]: ${JSON.stringify(customPactOptions)}`)
   let max = 0;
   let level = 1;
   if (customPactOptions) {
@@ -216,7 +224,7 @@ const calculateCustomPactSlots = (spells, customPactClass, progression) => {
     } else {
       levelOptions = customPactOptions[classLevel - 1];
     }
-    log.debug(`Custom pact options for level[${classLevel}]: ${JSON.stringify(levelOptions)}`)
+    log.debug(`Custom pact options for level ${classLevel}: ${JSON.stringify(levelOptions)}`)
     if (levelOptions) {
       if (levelOptions.slots) {
         max = levelOptions.slots;
@@ -235,4 +243,5 @@ const calculateCustomPactSlots = (spells, customPactClass, progression) => {
   spells.pact.level = level;
   spells.pact.max = max;
   spells.pact.value = Math.min(spells.pact.value, spells.pact.max);
+  log.debug(`Calculated pact slots for customPactClass[${progression}]: ${JSON.stringify(spells.pact)}`);
 };
