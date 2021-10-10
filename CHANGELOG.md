@@ -1,5 +1,13 @@
 # Changelog
 
+## [v1.2.4](https://github.com/illandril/FoundryVTT-third-pact/tree/v1.2.4) (2021-10-10)
+
+[Full Changelog](https://github.com/illandril/FoundryVTT-third-pact/compare/v1.2.3...v1.2.4)
+
+**Fixed&nbsp;Bugs**
+
+- \[BUG\] Pact Slots not accurate on first load [\#9](https://github.com/illandril/FoundryVTT-third-pact/issues/9)
+
 ## [v1.2.3](https://github.com/illandril/FoundryVTT-third-pact/tree/v1.2.3) (2021-08-19)
 
 [Full Changelog](https://github.com/illandril/FoundryVTT-third-pact/compare/v1.2.2...v1.2.3)
