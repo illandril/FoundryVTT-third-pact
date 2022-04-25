@@ -18,8 +18,7 @@ const getCustomPactTypeOptions = (customPactType) => {
     try {
       options = JSON.parse(setting);
     } catch (e) {
-      log.error(setting);
-      log.error(e);
+      log.error('Error parsing custom Pact options', { setting, e });
     }
   } else {
   }
@@ -72,24 +71,33 @@ Hooks.once('ready', () => {
   refreshPactSlots();
 });
 
-const refreshPactSlots = () => {
-  log.debug('Refreshing Pact Slots');
-  game.actors.forEach((actor) => {
-    log.debug(`Refreshing Pact Slots for ${actor.name}`);
-    const pactClass = someSpellcastingClass(actor, (itemData, progression) => {
-      return (
-        progression === 'pact' ||
-        progression === THIRD_PACT_TYPE ||
-        CUSTOM_PACT_TYPES.includes(progression)
-      );
-    });
-    if (pactClass) {
-      log.debug(`Actor[${actor.name}] has at least one pact class`);
-      derivePactSlots(actor.data);
-      actor.render(false);
-    }
+const refreshActorPactSlots = (actor) => {
+  const { name, type } = actor;
+  if(type !== 'character') {
+    log.debug(`Not refreshing Pact Slots for non-character Actor`, { name, type });
+    return;
+  }
+  log.debug(`Refreshing Pact Slots for Actor`, { name });
+  const pactClass = someSpellcastingClass(actor, (itemData, progression) => {
+    return (
+      progression === 'pact' ||
+      progression === THIRD_PACT_TYPE ||
+      CUSTOM_PACT_TYPES.includes(progression)
+    );
   });
-  log.debug('Done refreshing Pact Slots');
+  if (pactClass) {
+    log.debug(`Actor has at least one pact class`, { name });
+    derivePactSlots(actor.data);
+    actor.render(false);
+  } else {
+    log.debug(`Actor has no pact classes`, { name });
+  }
+};
+const refreshPactSlots = () => {
+  const start = Date.now();
+  log.info('Refreshing Pact Slots for all Actors');
+  game.actors.forEach(refreshActorPactSlots);
+  log.info('Done refreshing Pact Slots', `${(Date.now() - start) / 1000}s`);
 };
 
 const someSpellcastingClass = (actorData, fn) => {
@@ -108,10 +116,10 @@ const someSpellcastingClass = (actorData, fn) => {
 };
 
 const derivePactSlots = (actorData) => {
-  log.debug(`Deriving pact slots for ${actorData.name}`);
-  if (actorData.type !== 'character') {
+  const { name, type } = actorData;
+  log.debug(`Deriving pact slots`, { name, type });
+  if (type !== 'character') {
     // Third-pact caster calculation is only supported for players
-    log.debug(`Actor[${actorData.name}] is not a character`);
     return;
   }
 
@@ -119,7 +127,7 @@ const derivePactSlots = (actorData) => {
 
   const hasCustomPactClass = someSpellcastingClass(actorData, (itemData, progression) => {
     if (CUSTOM_PACT_TYPES.includes(progression)) {
-      log.debug(`Actor[${actorData.name}] has a custom pact slot class`);
+      log.debug('Actor has a custom pact slot class', actorData.name);
       calculateCustomPactSlots(spells, itemData, progression);
       return true;
     }
@@ -131,12 +139,12 @@ const derivePactSlots = (actorData) => {
   let { fullLevels, thirdLevels, isMultiClass } = countPactLevels(actorData);
   // Only fix pact slots if they have a 1/3 pact caster (Actor5e handles full-pact slots just fine)
   if (thirdLevels > 0) {
-    log.debug(`Actor[${actorData.name}] has at least one third-caster pact class`);
+    log.debug(`Actor has at least one third-caster pact class`, actorData.name);
     const pactLevels = calculateEffectiveLevels(isMultiClass, fullLevels, thirdLevels);
     if (pactLevels > 0) {
       calculatePactSlots(spells, pactLevels);
     } else {
-      log.debug(`Actor[${actorData.name}] doesn't have any levels in any one third-caster pact classes`);
+      log.debug(`Actor doesn't have any levels in any one third-caster pact classes`, actorData.name);
     }
   }
 };
@@ -206,12 +214,12 @@ const calculatePactSlots = (spells, effectivePactLevel) => {
     }
   }
   spells.pact.value = Math.min(spells.pact.value, spells.pact.max);
-  log.debug(`Calculated pact slots for effectivePactLevel[${effectivePactLevel}]: ${JSON.stringify(spells.pact)}`);
+  log.debug('Calculated pact slots for an effective pact level', { effectivePactLevel, slots: spells.pact });
 };
 
 const calculateCustomPactSlots = (spells, customPactClass, progression) => {
   const customPactOptions = getCustomPactTypeOptions(progression);
-  log.debug(`Custom pact options for [${progression}]: ${JSON.stringify(customPactOptions)}`)
+  log.debug('Custom pact options', { progression, customPactOptions });
   let max = 0;
   let level = 1;
   if (customPactOptions) {
@@ -224,7 +232,7 @@ const calculateCustomPactSlots = (spells, customPactClass, progression) => {
     } else {
       levelOptions = customPactOptions[classLevel - 1];
     }
-    log.debug(`Custom pact options for level ${classLevel}: ${JSON.stringify(levelOptions)}`)
+    log.debug('Custom pact options for level', { classLevel, levelOptions });
     if (levelOptions) {
       if (levelOptions.slots) {
         max = levelOptions.slots;
@@ -243,5 +251,5 @@ const calculateCustomPactSlots = (spells, customPactClass, progression) => {
   spells.pact.level = level;
   spells.pact.max = max;
   spells.pact.value = Math.min(spells.pact.value, spells.pact.max);
-  log.debug(`Calculated pact slots for customPactClass[${progression}]: ${JSON.stringify(spells.pact)}`);
+  log.debug('Calculated pact slots for a custom pact class', { progression, slots: spells.pact });
 };
