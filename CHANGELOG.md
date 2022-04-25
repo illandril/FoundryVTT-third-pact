@@ -1,5 +1,14 @@
 # Changelog
 
+## [v1.2.6](https://github.com/illandril/FoundryVTT-third-pact/tree/v1.2.6) (2022-04-25)
+
+[Full Changelog](https://github.com/illandril/FoundryVTT-third-pact/compare/v1.2.5...v1.2.6)
+
+**Enhancements**
+
+- Reduce debug logging to something more manageable for normal setups [\#11](https://github.com/illandril/FoundryVTT-third-pact/issues/11)
+- \[FEATURE\] Add "None" Hit Dice option [\#10](https://github.com/illandril/FoundryVTT-third-pact/issues/10)
+
 ## [v1.2.5](https://github.com/illandril/FoundryVTT-third-pact/tree/v1.2.5) (2022-01-14)
 
 [Full Changelog](https://github.com/illandril/FoundryVTT-third-pact/compare/v1.2.4...v1.2.5)
