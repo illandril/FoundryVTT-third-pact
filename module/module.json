@@ -1,14 +1,15 @@
 {
-    "name": "illandril-third-pact",
+    "id": "illandril-third-pact",
     "title": "Illandril's Pact Slot Third Caster (5e)",
     "description": "Adds support for Third Caster subclasses that use Pact Magic, and allows d4 and d20 options for hit dice.",
     "version": "1.2.6",
     "library": "false",
     "manifestPlusVersion": "1.2.0",
-    "minimumCoreVersion": "0.8.5",
-    "compatibleCoreVersion": "9",
+    "compatibility": {
+      "minimum": 10,
+      "verified": 10
+    },
     "type": "module",
-    "author": "Joe Spandrusyszyn (illandril)",
     "authors": [
         {
             "name": "Joe Spandrusyszyn (illandril)",
@@ -20,9 +21,17 @@
             "reddit": "u/illandril"
         }
     ],
-    "dependencies": [],
-    "system": "dnd5e",
-    "conflicts": [],
+    "relationships": {
+        "systems": [
+            {
+                "id": "dnd5e",
+                "type": "system",
+                "compatibility": {
+                    "verified": "1.6.3"
+                }
+            }
+        ]
+    },
     "esmodules": [
         "./scripts/index.js"
     ],

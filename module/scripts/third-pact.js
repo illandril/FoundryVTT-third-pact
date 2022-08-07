@@ -20,7 +20,6 @@ const getCustomPactTypeOptions = (customPactType) => {
     } catch (e) {
       log.error('Error parsing custom Pact options', { setting, e });
     }
-  } else {
   }
   if (!Array.isArray(options)) {
     return null;
@@ -58,15 +57,15 @@ Hooks.once('init', () => {
 });
 
 Hooks.once('ready', () => {
-  CONFIG.DND5E.spellProgression[THIRD_PACT_TYPE] = `${MODULE_NAME}.thirdpact`;
+  CONFIG.DND5E.spellProgression[THIRD_PACT_TYPE] = game.i18n.localize(`${MODULE_NAME}.thirdpact`);
   for (let customPactType of CUSTOM_PACT_TYPES) {
-    CONFIG.DND5E.spellProgression[customPactType] = `${MODULE_NAME}.${customPactType}.name`;
+    CONFIG.DND5E.spellProgression[customPactType] = game.i18n.localize(`${MODULE_NAME}.${customPactType}.name`);
   }
 
   const basePrepareDerivedData = game.dnd5e.entities.Actor5e.prototype.prepareDerivedData;
   game.dnd5e.entities.Actor5e.prototype.prepareDerivedData = function () {
     basePrepareDerivedData.call(this);
-    derivePactSlots(this.data);
+    derivePactSlots(this);
   };
   refreshPactSlots();
 });
@@ -87,7 +86,7 @@ const refreshActorPactSlots = (actor) => {
   });
   if (pactClass) {
     log.debug(`Actor has at least one pact class`, { name });
-    derivePactSlots(actor.data);
+    derivePactSlots(actor);
     actor.render(false);
   } else {
     log.debug(`Actor has no pact classes`, { name });
@@ -100,10 +99,10 @@ const refreshPactSlots = () => {
   log.info('Done refreshing Pact Slots', `${(Date.now() - start) / 1000}s`);
 };
 
-const someSpellcastingClass = (actorData, fn) => {
-  return actorData.items.some((item) => {
+const someSpellcastingClass = (actor, fn) => {
+  return actor.items.some((item) => {
     if (item.type === 'class') {
-      const itemData = item.data.data;
+      const itemData = item.system;
       let progression = itemData.spellcasting;
       if (typeof progression === 'object') {
         progression = progression.progression;
@@ -115,19 +114,19 @@ const someSpellcastingClass = (actorData, fn) => {
   });
 };
 
-const derivePactSlots = (actorData) => {
-  const { name, type } = actorData;
+const derivePactSlots = (actor) => {
+  const { name, type } = actor;
   log.debug(`Deriving pact slots`, { name, type });
   if (type !== 'character') {
     // Third-pact caster calculation is only supported for players
     return;
   }
 
-  const spells = actorData.data.spells;
+  const spells = actor.system.spells;
 
-  const hasCustomPactClass = someSpellcastingClass(actorData, (itemData, progression) => {
+  const hasCustomPactClass = someSpellcastingClass(actor, (itemData, progression) => {
     if (CUSTOM_PACT_TYPES.includes(progression)) {
-      log.debug('Actor has a custom pact slot class', actorData.name);
+      log.debug('Actor has a custom pact slot class', actor.name);
       calculateCustomPactSlots(spells, itemData, progression);
       return true;
     }
@@ -136,25 +135,25 @@ const derivePactSlots = (actorData) => {
     return;
   }
 
-  let { fullLevels, thirdLevels, isMultiClass } = countPactLevels(actorData);
+  let { fullLevels, thirdLevels, isMultiClass } = countPactLevels(actor);
   // Only fix pact slots if they have a 1/3 pact caster (Actor5e handles full-pact slots just fine)
   if (thirdLevels > 0) {
-    log.debug(`Actor has at least one third-caster pact class`, actorData.name);
+    log.debug(`Actor has at least one third-caster pact class`, actor.name);
     const pactLevels = calculateEffectiveLevels(isMultiClass, fullLevels, thirdLevels);
     if (pactLevels > 0) {
       calculatePactSlots(spells, pactLevels);
     } else {
-      log.debug(`Actor doesn't have any levels in any one third-caster pact classes`, actorData.name);
+      log.debug(`Actor doesn't have any levels in any one third-caster pact classes`, actor.name);
     }
   }
 };
 
-const countPactLevels = (actorData) => {
+const countPactLevels = (actor) => {
   let fullLevels = 0;
   let thirdLevels = 0;
   let classes = 0;
 
-  someSpellcastingClass(actorData, (itemData, progression) => {
+  someSpellcastingClass(actor, (itemData, progression) => {
     if (progression === 'pact') {
       classes++;
       fullLevels += itemData.levels;
