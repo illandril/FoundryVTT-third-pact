@@ -1,5 +1,9 @@
 # Changelog
 
+## [v2.0.0](https://github.com/illandril/FoundryVTT-third-pact/tree/v2.0.0) (2022-08-07)
+
+[Full Changelog](https://github.com/illandril/FoundryVTT-third-pact/compare/v1.2.6...v2.0.0)
+
 ## [v1.2.6](https://github.com/illandril/FoundryVTT-third-pact/tree/v1.2.6) (2022-04-25)
 
 [Full Changelog](https://github.com/illandril/FoundryVTT-third-pact/compare/v1.2.5...v1.2.6)
