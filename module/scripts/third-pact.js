@@ -62,8 +62,8 @@ Hooks.once('ready', () => {
     CONFIG.DND5E.spellProgression[customPactType] = game.i18n.localize(`${MODULE_NAME}.${customPactType}.name`);
   }
 
-  const basePrepareDerivedData = game.dnd5e.entities.Actor5e.prototype.prepareDerivedData;
-  game.dnd5e.entities.Actor5e.prototype.prepareDerivedData = function () {
+  const basePrepareDerivedData = game.dnd5e.documents.Actor5e.prototype.prepareDerivedData;
+  game.dnd5e.documents.Actor5e.prototype.prepareDerivedData = function () {
     basePrepareDerivedData.call(this);
     derivePactSlots(this);
   };
