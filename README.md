@@ -10,4 +10,4 @@ Having levels in a Third Caster (Pact) classes will provide a character with Pac
 1. Always Round Up
 1. Always Round Down (ex. [Blood Hunter Order of the Profane Soul](https://www.dndbeyond.com/classes/blood-hunter#OrderoftheProfaneSoul))
 
-This module also adds the option to add d4 and d20 to the "Hit Dice" options when configuring classes.
+This module also adds the option to add d20 to the "Hit Dice" options when configuring classes.

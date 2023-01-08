@@ -27,7 +27,6 @@
         "label": "Custom Pact Caster C",
         "hint": "Custom Pact Caster classes WILL NOT multiclass properly with other Pact Caster classes. See https://github.com/illandril/FoundryVTT-third-pact/issues/6 for details on how to use this option."
       },
-      "hitDice-d4.label": "Hit Dice: Include d4",
       "hitDice-d20.label": "Hit Dice: Include d20"
     }
   }
