@@ -1,0 +1,2 @@
+import './hitDice';
+import './thirdPact';
