@@ -20,7 +20,7 @@ const calculatePactSlots = (spells: Spells, effectivePactLevel: number) => {
     }
   }
   spells.pact.value = Math.min(spells.pact.value ?? 0, spells.pact.max);
-  module.logger.debug('Calculated pact slots for an effective pact level', { effectivePactLevel, slots: spells.pact });
+  module.logger.debug('Calculated pact slots for an effective pact level', effectivePactLevel, spells.pact);
 };
 
 export default calculatePactSlots;

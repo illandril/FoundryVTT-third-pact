@@ -26,21 +26,21 @@ Hooks.once('ready', () => {
 const refreshActorPactSlots = (actor: dnd5e.documents.Actor5e) => {
   const { name, type } = actor;
   if (type !== 'character') {
-    module.logger.debug(`Not refreshing Pact Slots for non-character Actor`, { name, type });
+    module.logger.debug(`Not refreshing Pact Slots for non-character Actor`, type, name, actor.id);
     return;
   }
-  module.logger.debug(`Refreshing Pact Slots for Actor`, { name });
+  module.logger.debug(`Refreshing Pact Slots for Actor`, name, actor.id);
   const pactClass = someSpellcastingClass(actor, (_itemData, progression) => {
     return progression === FULL_PACT_TYPE
       || progression === THIRD_PACT_TYPE
       || customPactTypes.some(({ key }) => key === progression);
   });
   if (pactClass) {
-    module.logger.debug(`Actor has at least one pact class`, { name });
+    module.logger.debug(`Actor has at least one pact class`, name, actor.id);
     derivePactSlots(actor);
     actor.render(false);
   } else {
-    module.logger.debug(`Actor has no pact classes`, { name });
+    module.logger.debug(`Actor has no pact classes`, name, actor.id);
   }
 };
 

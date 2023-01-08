@@ -21,7 +21,7 @@ const calculateCustomPactSlots = (
     } else {
       levelOptions = customPactOptions[classLevel - 1];
     }
-    module.logger.debug('Custom pact options for level', { classLevel, levelOptions });
+    module.logger.debug('Custom pact options for level', classLevel, levelOptions);
     if (levelOptions && typeof levelOptions === 'object') {
       if (typeof levelOptions.slots === 'number') {
         max = levelOptions.slots;
