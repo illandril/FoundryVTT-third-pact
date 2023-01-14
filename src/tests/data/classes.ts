@@ -16,6 +16,9 @@ export const fullCaster = (levels?: number) => {
     id: 'iRcFINsL9GQAJhTL',
     name: 'Wizard',
     type: 'class',
+    spellcasting: {
+      progression: 'full',
+    },
     system: {
       levels,
       spellcasting: {
@@ -30,6 +33,9 @@ export const halfCaster = (levels?: number) => {
     id: 'NhHh0xH7W6acteQl',
     name: 'Ranger',
     type: 'class',
+    spellcasting: {
+      progression: 'half',
+    },
     system: {
       levels,
       spellcasting: {
@@ -44,6 +50,9 @@ export const fullPact = (levels?: number) => {
     id: '4IdieaTxb7i1Xyvf',
     name: 'Warlock',
     type: 'class',
+    spellcasting: {
+      progression: 'pact',
+    },
     system: {
       levels,
       spellcasting: {
@@ -58,6 +67,9 @@ export const thirdPact = (levels?: number) => {
     id: 'UugzTeSk0oDIfARk',
     name: 'Third Pact Class',
     type: 'class',
+    spellcasting: {
+      progression: 'illandril_thirdpact',
+    },
     system: {
       levels,
       spellcasting: {
@@ -72,6 +84,9 @@ export const customPactA = (levels?: number) => {
     id: 'DGMUHZEGSmq6MHJI',
     name: 'Custom Pact A Class',
     type: 'class',
+    spellcasting: {
+      progression: 'illandril_custompact_a',
+    },
     system: {
       levels,
       spellcasting: {
@@ -86,6 +101,9 @@ export const customPactB = (levels?: number) => {
     id: 'ucEWDsKa3cMnxWIo',
     name: 'Custom Pact B Class',
     type: 'class',
+    spellcasting: {
+      progression: 'illandril_custompact_b',
+    },
     system: {
       levels,
       spellcasting: {
@@ -100,6 +118,9 @@ export const customPactC = (levels?: number) => {
     id: 'OOmRoB6Nda3FvxzX',
     name: 'Custom Pact C Class',
     type: 'class',
+    spellcasting: {
+      progression: 'illandril_custompact_c',
+    },
     system: {
       levels,
       spellcasting: {

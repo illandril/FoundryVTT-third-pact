@@ -30,7 +30,7 @@ const refreshActorPactSlots = (actor: dnd5e.documents.Actor5e) => {
     return;
   }
   module.logger.debug(`Refreshing Pact Slots for Actor`, name, actor.id);
-  const pactClass = someSpellcastingClass(actor, (_itemData, progression) => {
+  const pactClass = someSpellcastingClass(actor, (_levels, progression) => {
     return progression === FULL_PACT_TYPE
       || progression === THIRD_PACT_TYPE
       || customPactTypes.some(({ key }) => key === progression);

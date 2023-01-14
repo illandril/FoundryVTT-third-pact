@@ -2,6 +2,7 @@ type MockItem = {
   id: string
   name: string
   type: string
+  spellcasting?: dnd5e.documents.ItemSystemData.Spellcasting
   system: dnd5e.documents.ItemSystemData.Any
   sort?: number
 };

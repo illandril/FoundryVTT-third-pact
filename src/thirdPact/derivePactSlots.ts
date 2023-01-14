@@ -20,11 +20,11 @@ const derivePactSlots = (actor: dnd5e.documents.Actor5e) => {
     return;
   }
 
-  const hasCustomPactClass = someSpellcastingClass(actor, (itemData, progression) => {
+  const hasCustomPactClass = someSpellcastingClass(actor, (levels, progression) => {
     const customPactType = customPactTypes.find(({ key }) => key === progression);
     if (customPactType) {
       module.logger.debug('Actor has a custom pact slot class', name, actor.id);
-      calculateCustomPactSlots(spells, itemData.levels || 0, customPactType);
+      calculateCustomPactSlots(spells, levels, customPactType);
       return true;
     }
     return false;

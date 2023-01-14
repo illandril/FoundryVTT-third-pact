@@ -6,13 +6,13 @@ const countThirdPactLevels = (actor: dnd5e.documents.Actor5e, roundingMode: Roun
   let thirdLevels = 0;
   let classes = 0;
 
-  someSpellcastingClass(actor, (itemData, progression) => {
+  someSpellcastingClass(actor, (levels, progression) => {
     if (progression === FULL_PACT_TYPE) {
       classes++;
-      fullLevels += itemData.levels || 0;
+      fullLevels += levels;
     } else if (progression === THIRD_PACT_TYPE) {
       classes++;
-      thirdLevels += itemData.levels || 0;
+      thirdLevels += levels;
     }
     return false;
   });
