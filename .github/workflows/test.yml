@@ -8,10 +8,7 @@ jobs:
         id: build_changelog
         uses: mikepenz/release-changelog-builder-action@v3
         with:
-          configurationJson: |
-            {
-              "commitMode": true
-            }
+          commitMode: true
       - name: "Echo changelog"
-        run: echo "${{steps.build_changelog.outputs.changelog}}"
+        run: echo "::notice ${{steps.build_changelog.outputs.changelog}}"
       
