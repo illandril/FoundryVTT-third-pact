@@ -10,8 +10,8 @@ jobs:
         with:
           configurationJson: |
             {
-              commitMode: true
+              "commitMode": true
             }
       - name: "Echo changelog"
-        run: echo ${{steps.build_changelog.outputs.changelog}}
+        run: echo "${{steps.build_changelog.outputs.changelog}}"
       
