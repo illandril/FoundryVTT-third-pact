@@ -5,10 +5,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Build Changelog"
-        id: build_changelog
+        id: changelog
         uses: mikepenz/release-changelog-builder-action@v3
         with:
           commitMode: true
       - name: "Echo changelog"
-        run: echo "::notice ${{steps.build_changelog.outputs.changelog}}"
+        run: echo "::notice ${{steps.changelog.outputs.changelog}}"
       
