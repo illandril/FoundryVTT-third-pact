@@ -1,4 +1,3 @@
-import { Setting } from '@illandril/foundryvtt-utils/dist/Settings';
 import module from '../module';
 
 type SettingListener = () => void;
@@ -19,7 +18,7 @@ type CustomPactTypeID = typeof customPactTypeIDs[number];
 
 export type CustomPactType = {
   key: `illandril_custompact_${CustomPactTypeID}`
-  setting: Setting<string>
+  setting: ReturnType<typeof module.settings.register<string>>
 };
 
 const setupCustomPactType = (type: CustomPactTypeID): CustomPactType => {

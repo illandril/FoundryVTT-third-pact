@@ -14,7 +14,6 @@ const refreshPactSlots = () => {
 registerSettingChangeHandler(refreshPactSlots);
 
 Hooks.once('ready', () => {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   const basePrepareDerivedData = dnd5e.documents.Actor5e.prototype.prepareDerivedData;
   dnd5e.documents.Actor5e.prototype.prepareDerivedData = function() {
     basePrepareDerivedData.call(this);
