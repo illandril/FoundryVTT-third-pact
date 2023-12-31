@@ -1,8 +1,4 @@
-
-let mockSavedValue: typeof import('@illandril/foundryvtt-utils/dist/tests/setup/game/settings').mockSavedValue;
-
 beforeEach(async () => {
-  mockSavedValue = (await import('@illandril/foundryvtt-utils/dist/tests/setup/game/settings')).mockSavedValue;
   await import('./index');
   jest.resetModules();
 });
@@ -13,7 +9,7 @@ afterEach(() => {
 
 describe('hit-dice', () => {
   it('adds d20 during startup if enabled', () => {
-    mockSavedValue('illandril-third-pact', 'hitDice-d20', true);
+    SIMULATE.mockSavedSetting('illandril-third-pact', 'hitDice-d20', true);
 
     expect(dnd5e.config.hitDieTypes).toEqual(['d4', 'd6', 'd8', 'd10', 'd12']);
 
@@ -23,7 +19,7 @@ describe('hit-dice', () => {
   });
 
   it('does not add d20 during startup if disabled', () => {
-    mockSavedValue('illandril-third-pact', 'hitDice-d20', false);
+    SIMULATE.mockSavedSetting('illandril-third-pact', 'hitDice-d20', false);
 
     expect(dnd5e.config.hitDieTypes).toEqual(['d4', 'd6', 'd8', 'd10', 'd12']);
 
@@ -33,7 +29,7 @@ describe('hit-dice', () => {
   });
 
   it('does not add d20 during startup if no saved setting', () => {
-    mockSavedValue('illandril-third-pact', 'hitDice-d20', undefined);
+    SIMULATE.mockSavedSetting('illandril-third-pact', 'hitDice-d20', undefined);
 
     expect(dnd5e.config.hitDieTypes).toEqual(['d4', 'd6', 'd8', 'd10', 'd12']);
 
@@ -104,8 +100,8 @@ describe('hit-dice', () => {
 
     Hooks.callAll('init');
 
-    expect(errorSpy).toBeCalledTimes(1);
-    expect(errorSpy).toBeCalledWith(
+    expect(errorSpy).toHaveBeenCalledTimes(1);
+    expect(errorSpy).toHaveBeenCalledWith(
       expect.stringMatching(/Illandril's Pact Slot Third Caster/),
       expect.stringMatching(/background/),
       'Cannot update hit dice - dnd5e.config.hitDieTypes was an unexpected type',

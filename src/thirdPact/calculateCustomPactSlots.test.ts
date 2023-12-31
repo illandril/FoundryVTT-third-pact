@@ -34,8 +34,8 @@ it.each(['', 'my cool class'])('fails gracefully for non-JSON definitions (%s)',
   expect(spells.pact?.level).toBe(1);
   expect(spells.pact?.max).toBe(0);
 
-  expect(errorSpy).toBeCalledTimes(1);
-  expect(errorSpy).toBeCalledWith(
+  expect(errorSpy).toHaveBeenCalledTimes(1);
+  expect(errorSpy).toHaveBeenCalledWith(
     expect.stringContaining('Illandril\'s Pact Slot Third Caster'),
     expect.stringContaining('background-color'),
     'Error parsing custom Pact options',

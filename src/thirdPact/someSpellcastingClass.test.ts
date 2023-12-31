@@ -27,8 +27,8 @@ it.each([
   const result = someSpellcastingClass(actor, callback);
 
   expect(result).toBe(false);
-  expect(callback).toBeCalledTimes(1);
-  expect(callback).toBeCalledWith(1, progression);
+  expect(callback).toHaveBeenCalledTimes(1);
+  expect(callback).toHaveBeenCalledWith(1, progression);
 });
 
 it.each([
@@ -66,8 +66,8 @@ it.each([
   const result = someSpellcastingClass(actor, callback);
 
   expect(result).toBe(false);
-  expect(callback).toBeCalledTimes(1);
-  expect(callback).toBeCalledWith(1, progression);
+  expect(callback).toHaveBeenCalledTimes(1);
+  expect(callback).toHaveBeenCalledWith(1, progression);
 });
 
 it('does not call callback for non-spellcasting classes', () => {
@@ -86,7 +86,7 @@ it('does not call callback for non-spellcasting classes', () => {
   const result = someSpellcastingClass(actor, callback);
 
   expect(result).toBe(false);
-  expect(callback).toBeCalledTimes(0);
+  expect(callback).toHaveBeenCalledTimes(0);
 });
 
 it('does not call callback for non-class items', () => {
@@ -108,7 +108,7 @@ it('does not call callback for non-class items', () => {
   const result = someSpellcastingClass(actor, callback);
 
   expect(result).toBe(false);
-  expect(callback).toBeCalledTimes(0);
+  expect(callback).toHaveBeenCalledTimes(0);
 });
 
 it('gracefully handles actors without items', () => {
@@ -118,7 +118,7 @@ it('gracefully handles actors without items', () => {
   const result = someSpellcastingClass(actor, callback);
 
   expect(result).toBe(false);
-  expect(callback).toBeCalledTimes(0);
+  expect(callback).toHaveBeenCalledTimes(0);
 });
 
 it('quintuple multi-class', () => {
@@ -133,11 +133,11 @@ it('quintuple multi-class', () => {
 
   someSpellcastingClass(actor, callback);
 
-  expect(callback).toBeCalledTimes(4);
-  expect(callback).toBeCalledWith(2, 'half');
-  expect(callback).toBeCalledWith(3, 'full');
-  expect(callback).toBeCalledWith(4, 'pact');
-  expect(callback).toBeCalledWith(5, 'illandril_thirdpact');
+  expect(callback).toHaveBeenCalledTimes(4);
+  expect(callback).toHaveBeenCalledWith(2, 'half');
+  expect(callback).toHaveBeenCalledWith(3, 'full');
+  expect(callback).toHaveBeenCalledWith(4, 'pact');
+  expect(callback).toHaveBeenCalledWith(5, 'illandril_thirdpact');
 });
 
 it('stops when one class returns true', () => {
@@ -152,7 +152,7 @@ it('stops when one class returns true', () => {
 
   expect(result).toBe(true);
 
-  expect(callback).toBeCalledTimes(2);
+  expect(callback).toHaveBeenCalledTimes(2);
   expect(callback).toHaveBeenLastCalledWith(3, 'illandril_custompact_a');
 });
 
@@ -168,6 +168,6 @@ it('returns false if nothing returns true', () => {
 
   expect(result).toBe(false);
 
-  expect(callback).toBeCalledTimes(3);
+  expect(callback).toHaveBeenCalledTimes(3);
 });
 
