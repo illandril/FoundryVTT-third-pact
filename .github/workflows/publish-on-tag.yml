@@ -77,7 +77,7 @@ jobs:
           tag: ${{ github.ref_name }}
 
       - name: Release
-        uses: illandril/FoundryVTT-package-release-action@latest
+        uses: illandril/FoundryVTT-package-release-action@v1
         with:
           package-release-token: ${{ secrets.PACKAGE_RELEASE_TOKEN }}
           manifest-url: "https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.result }}/module.json"
