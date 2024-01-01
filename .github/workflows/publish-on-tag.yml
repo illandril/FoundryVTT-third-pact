@@ -80,4 +80,4 @@ jobs:
         uses: illandril/FoundryVTT-package-release-action@v1
         with:
           package-release-token: ${{ secrets.PACKAGE_RELEASE_TOKEN }}
-          manifest-url: "https://github.com/${{ github.repository }}/releases/download/${{ steps.version.outputs.result }}/module.json"
+          manifest-url: "https://github.com/${{ github.repository }}/releases/download/v${{ steps.version.outputs.result }}/module.json"
