@@ -23,7 +23,15 @@ it('uses the correct custom class definition', () => {
   expect(spellsC.pact?.level).toBe(3);
 });
 
-it.each(['', 'my cool class'])('fails gracefully for non-JSON definitions (%s)', (definition) => {
+it.each([
+  'my cool class',
+
+  // Missing closing `]`
+  '[{"slots":1,"spellLevel":1}',
+
+  // `'` instead of `"`
+  '[{\'slots\':1,\'spellLevel\':1}]',
+])('fails gracefully for non-JSON definitions (%j)', (definition) => {
   const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
 
   customPactTypes[0].setting.set(definition);
@@ -43,6 +51,16 @@ it.each(['', 'my cool class'])('fails gracefully for non-JSON definitions (%s)',
     definition,
     expect.any(Error),
   );
+});
+
+it.each(Array.from({ length: 20 }, (_v, i) => i + 1))('gracefully handles empty-string (level=%j)', (level) => {
+  customPactTypes[0].setting.set('');
+  const spells: Spells = { pact: {} };
+
+  calculateCustomPactSlots(spells, level, customPactTypes[0]);
+
+  expect(spells.pact?.level).toBe(1);
+  expect(spells.pact?.max).toBe(0);
 });
 
 it('fails gracefully if type is missing slots', () => {
@@ -73,6 +91,66 @@ it.each([0, -1, -5, -10])('fails gracefully if type class level is %i', (level) 
 
   expect(spells.pact?.level).toBe(1);
   expect(spells.pact?.max).toBe(0);
+});
+
+it('gracefully ignores missing data for levels', () => {
+  customPactTypes[0].setting.set(JSON.stringify([
+    { spellLevel: 1, slots: 2 }, // 1
+    { spellLevel: 3, slots: 4 }, // 2
+    [], // 3
+    '', // 4
+    {}, // 5
+    { spellLevel: 5 }, // 6
+    { slots: 6 }, // 7
+    { spellLevel: 7, slots: 8 }, // 8
+  ]));
+
+  const spells: Spells = { pact: {} };
+
+  calculateCustomPactSlots(spells, 1, customPactTypes[0]);
+
+  expect(spells.pact?.level).toBe(1);
+  expect(spells.pact?.max).toBe(2);
+
+  calculateCustomPactSlots(spells, 2, customPactTypes[0]);
+
+  expect(spells.pact?.level).toBe(3);
+  expect(spells.pact?.max).toBe(4);
+
+  calculateCustomPactSlots(spells, 3, customPactTypes[0]);
+
+  expect(spells.pact?.level).toBe(3);
+  expect(spells.pact?.max).toBe(4);
+
+  calculateCustomPactSlots(spells, 4, customPactTypes[0]);
+
+  expect(spells.pact?.level).toBe(3);
+  expect(spells.pact?.max).toBe(4);
+
+  calculateCustomPactSlots(spells, 5, customPactTypes[0]);
+
+  expect(spells.pact?.level).toBe(3);
+  expect(spells.pact?.max).toBe(4);
+
+  calculateCustomPactSlots(spells, 6, customPactTypes[0]);
+
+  expect(spells.pact?.level).toBe(5);
+  expect(spells.pact?.max).toBe(4);
+
+  calculateCustomPactSlots(spells, 7, customPactTypes[0]);
+
+  expect(spells.pact?.level).toBe(5);
+  expect(spells.pact?.max).toBe(6);
+
+  calculateCustomPactSlots(spells, 8, customPactTypes[0]);
+
+  expect(spells.pact?.level).toBe(7);
+  expect(spells.pact?.max).toBe(8);
+
+  calculateCustomPactSlots(spells, 9, customPactTypes[0]);
+
+  expect(spells.pact?.level).toBe(7);
+  expect(spells.pact?.max).toBe(8);
 });
 
 it('uses last specified level if all levels not included', () => {

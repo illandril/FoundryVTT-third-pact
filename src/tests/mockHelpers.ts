@@ -9,7 +9,7 @@ type MockItem = {
 
 export const mockItem = (item: MockItem) => item as dnd5e.documents.Item5e;
 
-export const mockActor = (items: dnd5e.documents.Item5e[] | undefined, extraProps?: object) => {
+export const mockActor = (items: dnd5e.documents.Item5e[] | undefined, extraProps?: Partial<dnd5e.documents.Actor5e>) => {
   let items5e: foundry.utils.Collection<string, dnd5e.documents.Item5e> | undefined;
   if (items) {
     items5e = {

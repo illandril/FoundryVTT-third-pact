@@ -15,19 +15,22 @@
           "down": "Always Round Down"
         }
       },
-      "illandril_custompact_a": {
-        "label": "Custom Pact Caster A",
-        "hint": "Custom Pact Caster classes WILL NOT multiclass properly with other Pact Caster classes. See https://github.com/illandril/FoundryVTT-third-pact/issues/6 for details on how to use this option."
-      },
-      "illandril_custompact_b": {
-        "label": "Custom Pact Caster B",
-        "hint": "Custom Pact Caster classes WILL NOT multiclass properly with other Pact Caster classes. See https://github.com/illandril/FoundryVTT-third-pact/issues/6 for details on how to use this option."
-      },
-      "illandril_custompact_c": {
-        "label": "Custom Pact Caster C",
-        "hint": "Custom Pact Caster classes WILL NOT multiclass properly with other Pact Caster classes. See https://github.com/illandril/FoundryVTT-third-pact/issues/6 for details on how to use this option."
-      },
-      "hitDice-d20.label": "Hit Dice: Include d20"
+      "illandril_custompact_a.label": "Custom Pact Caster A",
+      "illandril_custompact_b.label": "Custom Pact Caster B",
+      "illandril_custompact_c.label": "Custom Pact Caster C",
+      "hitDice-d20.label": "Hit Dice: Include d20",
+      "menu": {
+        "customPacts": {
+          "name": "Custom Pact Caster Progression",
+          "label": "Configure",
+          "hint": "Configure Custom Pact Caster spell progression settings. Note: Custom Pact Caster classes WILL NOT multiclass properly with other Pact Caster classes.",
+          "title": "Custom Pact Caster Progression",
+          "classLevel": "Class Level",
+          "slots": "Spell Slots",
+          "spellLevel": "Spell Level",
+          "save": "Save Changes"
+        }
+      }
     }
   }
 }

@@ -1,0 +1,22 @@
+<form autocomplete="off" onsubmit="event.preventDefault()">
+  <nav class="sheet-tabs tabs" data-group="primary">
+    {{#each customPacts}}
+      <a class="item" data-tab={{this.key}}>{{this.label}}</a>
+    {{/each}}
+  </nav>
+  <section class="scrollable">
+    {{#each customPacts}}
+      <div class="tab active" data-tab={{this.key}}>
+        {{> modules/illandril-third-pact/templates/menu-customPacts-pact.html
+          pact=this
+          CSS=../CSS
+          menuLocalize=../menuLocalize
+          spellLevels=../spellLevels
+        }}
+      </div>
+    {{/each}}
+  </section>
+  <footer>
+    <button type="submit"><i class="fas fa-save"></i> {{menuLocalize 'save'}}</button>
+  </footer>
+</form>

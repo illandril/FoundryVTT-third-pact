@@ -26,8 +26,8 @@ const setupCustomPactType = (type: CustomPactTypeID): CustomPactType => {
   return {
     key,
     setting: module.settings.register(key, String, '', {
-      hasHint: true,
       onChange,
+      config: false,
     }),
   };
 };

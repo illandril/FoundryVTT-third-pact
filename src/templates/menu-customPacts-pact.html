@@ -1,0 +1,25 @@
+
+<div class={{CSS.progression}}>
+  <div class={{CSS.levelHeaders}}>
+    <div id={{concat pact.key '.classLevel'}}>{{menuLocalize 'classLevel'}}</div>
+    <div id={{concat pact.key '.slots'}}>{{menuLocalize 'slots'}}</div>
+    <div id={{concat pact.key '.spellLevel'}}>{{menuLocalize 'spellLevel'}}</div>
+  </div>
+  {{#each pact.progression}}
+    <div class={{CSS.level}}>
+      <label id={{concat ../pact.key '.' this.classLevel}}>{{this.classLevel}}</label>
+      <input
+        type="number" min="0" max="99" value={{this.slots}}
+        name={{concat ../pact.key '.' this.classLevel '.slots'}}
+        aria-labelledby={{concat ../pact.key '.classLevel ' ../pact.key '.' this.classLevel ' ' ../pact.key '.slots' }}
+      />
+      <select
+        name={{concat ../pact.key '.' this.classLevel '.spellLevel'}}
+        aria-labelledby={{concat ../pact.key '.classLevel ' ../pact.key '.' this.classLevel ' ' ../pact.key '.spellLevel' }}
+        value={{this.spellLevel}}
+      >
+        {{selectOptions ../spellLevels selected=this.spellLevel}}
+      </select>
+    </div>
+  {{/each}}
+</div>

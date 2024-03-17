@@ -1,0 +1,32 @@
+
+#illandril-third-pact--menu--customPacts {
+  max-height: calc(100vh - 15rem);
+  .tabs .item {
+    white-space: nowrap;
+  }
+
+  form {
+    & > section {
+      margin: 1rem 0;
+    }
+
+    .illandril-third-pact--menu--customPacts--progression {
+      display: grid;
+      grid-template-columns: min-content max-content max-content;
+      gap: 0.25rem 0.5rem;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      & > * {
+        display: contents;
+      }
+      input[type="number"] {
+        width: 5rem;
+      }
+    }
+    & > footer {
+      margin-top: 1rem;
+    }
+  }
+}
