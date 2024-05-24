@@ -1,6 +1,6 @@
 {
   "name": "@illandril/foundryvtt-third-pact",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Illandril's Pact Slot Third Caster (5e): Adds support for Third Caster subclasses that use Pact Magic, and allows a d20 option for hit dice.",
   "type": "module",
   "scripts": {
