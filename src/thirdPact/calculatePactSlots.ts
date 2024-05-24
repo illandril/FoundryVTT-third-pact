@@ -5,7 +5,7 @@ const calculatePactSlots = (spells: Spells, effectivePactLevel: number) => {
   spells.pact = spells.pact || {};
   spells.pact.level = Math.ceil(Math.min(10, effectivePactLevel) / 2);
   const pactOverride = toInt(spells.pact.override);
-  if (!isNaN(pactOverride)) {
+  if (!Number.isNaN(pactOverride)) {
     spells.pact.max = Math.max(pactOverride, 1);
   } else {
     spells.pact.max = 1;

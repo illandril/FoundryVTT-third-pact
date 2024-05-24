@@ -22,101 +22,107 @@ describe.each([
   [19, 5, 4],
   [20, 5, 4],
   [30, 5, 4],
-])('for effectivePactLevel=%i, expectedSlotLevel: %i, expectedSlotCount: %i', (effectivePactLevel, expectedSlotLevel, expectedSlotCount) => {
-  it('sets the correct pact.max', () => {
-    const spells: Spells = {
-      pact: {
-        level: 0,
-        max: 0,
-        value: 0,
-      },
-    };
+])(
+  'for effectivePactLevel=%i, expectedSlotLevel: %i, expectedSlotCount: %i',
+  (effectivePactLevel, expectedSlotLevel, expectedSlotCount) => {
+    it('sets the correct pact.max', () => {
+      const spells: Spells = {
+        pact: {
+          level: 0,
+          max: 0,
+          value: 0,
+        },
+      };
 
-    calculatePactSlots(spells, effectivePactLevel);
+      calculatePactSlots(spells, effectivePactLevel);
 
-    expect(spells.pact?.max).toBe(expectedSlotCount);
-  });
+      expect(spells.pact?.max).toBe(expectedSlotCount);
+    });
 
-  it('sets the correct pact.level', () => {
-    const spells: Spells = {
-      pact: {
-        level: 0,
-        max: 0,
-        value: 0,
-      },
-    };
+    it('sets the correct pact.level', () => {
+      const spells: Spells = {
+        pact: {
+          level: 0,
+          max: 0,
+          value: 0,
+        },
+      };
 
-    calculatePactSlots(spells, effectivePactLevel);
+      calculatePactSlots(spells, effectivePactLevel);
 
-    expect(spells.pact?.level).toBe(expectedSlotLevel);
-  });
+      expect(spells.pact?.level).toBe(expectedSlotLevel);
+    });
 
-  it('creates pact object if it does not already exist', () => {
-    const spells: Spells = {};
+    it('creates pact object if it does not already exist', () => {
+      const spells: Spells = {};
 
-    calculatePactSlots(spells, effectivePactLevel);
+      calculatePactSlots(spells, effectivePactLevel);
 
-    expect(spells.pact).toBeDefined();
-    expect(spells.pact?.level).toBe(expectedSlotLevel);
-    expect(spells.pact?.max).toBe(expectedSlotCount);
-  });
+      expect(spells.pact).toBeDefined();
+      expect(spells.pact?.level).toBe(expectedSlotLevel);
+      expect(spells.pact?.max).toBe(expectedSlotCount);
+    });
 
-  it('reduces pact.value to the expectedSlotCount when it is greater', () => {
-    const spells: Spells = {
-      pact: {
-        level: 0,
-        max: 0,
-        value: 5,
-      },
-    };
+    it('reduces pact.value to the expectedSlotCount when it is greater', () => {
+      const spells: Spells = {
+        pact: {
+          level: 0,
+          max: 0,
+          value: 5,
+        },
+      };
 
-    calculatePactSlots(spells, effectivePactLevel);
+      calculatePactSlots(spells, effectivePactLevel);
 
-    expect(spells.pact?.value).toBe(expectedSlotCount);
-  });
-
-  it.each([0, 1, 2, 3, 4])('leaves pact.value (%i) unchanged when it is below or equal to the expectedSlotCount', (value) => {
-    const spells: Spells = {
-      pact: {
-        level: 0,
-        max: 0,
-        value,
-      },
-    };
-
-    calculatePactSlots(spells, effectivePactLevel);
-
-    if (value < expectedSlotCount) {
-      expect(spells.pact?.value).toBe(value);
-    } else {
       expect(spells.pact?.value).toBe(expectedSlotCount);
-    }
-  });
+    });
 
-  it('sets pact.value to 0 when it is undefined', () => {
-    const spells: Spells = {
-      pact: {
-        level: 0,
-        max: 0,
+    it.each([0, 1, 2, 3, 4])(
+      'leaves pact.value (%i) unchanged when it is below or equal to the expectedSlotCount',
+      (value) => {
+        const spells: Spells = {
+          pact: {
+            level: 0,
+            max: 0,
+            value,
+          },
+        };
+
+        calculatePactSlots(spells, effectivePactLevel);
+
+        if (value < expectedSlotCount) {
+          expect(spells.pact?.value).toBe(value);
+        } else {
+          expect(spells.pact?.value).toBe(expectedSlotCount);
+        }
       },
-    };
+    );
 
-    calculatePactSlots(spells, effectivePactLevel);
+    it('sets pact.value to 0 when it is undefined', () => {
+      const spells: Spells = {
+        pact: {
+          level: 0,
+          max: 0,
+        },
+      };
 
-    expect(spells.pact?.value).toBe(0);
-  });
+      calculatePactSlots(spells, effectivePactLevel);
 
-  it.each([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])('uses the defined override for pact.max (%i)', (override) => {
-    const spells: Spells = {
-      pact: {
-        override,
-      },
-    };
+      expect(spells.pact?.value).toBe(0);
+    });
 
-    calculatePactSlots(spells, effectivePactLevel);
+    it.each([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])('uses the defined override for pact.max (%i)', (override) => {
+      const spells: Spells = {
+        pact: {
+          override,
+        },
+      };
 
-    expect(spells.pact?.override).toBe(override);
-    expect(spells.pact?.max).toBe(override);
-    expect(spells.pact?.level).toBe(expectedSlotLevel);
-  });
-});
+      calculatePactSlots(spells, effectivePactLevel);
+
+      expect(spells.pact?.override).toBe(override);
+      expect(spells.pact?.max).toBe(override);
+      expect(spells.pact?.level).toBe(expectedSlotLevel);
+    });
+  },
+);

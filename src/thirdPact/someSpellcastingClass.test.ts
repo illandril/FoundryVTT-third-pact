@@ -3,8 +3,15 @@ import { mockActor, mockItem } from '../tests/mockHelpers';
 import someSpellcastingClass from './someSpellcastingClass';
 
 it.each([
-  'none', 'full', 'half', 'third', 'pact', 'illandril_thirdpact',
-  'illandril_custompact_a', 'illandril_custompact_b', 'illandril_custompact_c',
+  'none',
+  'full',
+  'half',
+  'third',
+  'pact',
+  'illandril_thirdpact',
+  'illandril_custompact_a',
+  'illandril_custompact_b',
+  'illandril_custompact_c',
 ] as const)('calls callback for caster with progression %j', (progression) => {
   const item = mockItem({
     id: 'dM7AuThHzjEOXSlP',
@@ -32,8 +39,15 @@ it.each([
 });
 
 it.each([
-  'none', 'full', 'half', 'third', 'pact', 'illandril_thirdpact',
-  'illandril_custompact_a', 'illandril_custompact_b', 'illandril_custompact_c',
+  'none',
+  'full',
+  'half',
+  'third',
+  'pact',
+  'illandril_thirdpact',
+  'illandril_custompact_a',
+  'illandril_custompact_b',
+  'illandril_custompact_c',
 ] as const)('calls callback for non-caster class with subclass with progression %j', (progression) => {
   const classItem = mockItem({
     id: 'dM7AuThHzjEOXSlP',
@@ -170,4 +184,3 @@ it('returns false if nothing returns true', () => {
 
   expect(callback).toHaveBeenCalledTimes(3);
 });
-

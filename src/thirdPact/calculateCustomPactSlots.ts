@@ -1,18 +1,14 @@
 import { toInt } from '@illandril/foundryvtt-utils';
 import module from '../module';
-import getCustomPactTypeOptions from './getCustomPactTypeOptions';
-import { CustomPactType } from './settings';
+import getCustomPactTypeOptions, { type CustomPactLevel } from './getCustomPactTypeOptions';
+import type { CustomPactType } from './settings';
 
-const calculateCustomPactSlots = (
-  spells: Spells,
-  classLevel: number,
-  customPactType: CustomPactType,
-) => {
+const calculateCustomPactSlots = (spells: Spells, classLevel: number, customPactType: CustomPactType) => {
   const customPactOptions = getCustomPactTypeOptions(customPactType);
   module.logger.debug('Custom pact options', customPactType.key, customPactOptions);
   let max = 0;
   let level = 1;
-  let levelOptions;
+  let levelOptions: CustomPactLevel | null;
   if (classLevel > customPactOptions.length) {
     levelOptions = customPactOptions[customPactOptions.length - 1];
   } else if (classLevel <= 0) {
@@ -28,7 +24,7 @@ const calculateCustomPactSlots = (
 
   spells.pact = spells.pact || {};
   const pactOverride = toInt(spells.pact.override);
-  if (!isNaN(pactOverride)) {
+  if (!Number.isNaN(pactOverride)) {
     module.logger.debug('Actor has a pact slots override', pactOverride);
     max = Math.max(pactOverride, 0);
   }

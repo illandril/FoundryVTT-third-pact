@@ -1,19 +1,22 @@
 import module from '../module';
-import { CustomPactType } from './settings';
+import type { CustomPactType } from './settings';
 
-type CustomPactLevel = {
-  classLevel: number
-  slots: number
-  spellLevel: number
+export type CustomPactLevel = {
+  classLevel: number;
+  slots: number;
+  spellLevel: number;
 };
 type CustomPactProgression = CustomPactLevel[];
 
 type ParsedJSON = object | unknown[] | string | number | boolean | null;
-type MaybeCustomPactOptions = {
-  slots?: unknown
-  spellLevel?: unknown
-} | Exclude<ParsedJSON, object>;
+type MaybeCustomPactOptions =
+  | {
+      slots?: unknown;
+      spellLevel?: unknown;
+    }
+  | Exclude<ParsedJSON, object>;
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: Sure is complex, and would be nice if it wasn't... but no time to simplify right now
 const getCustomPactTypeOptions = (customPactType: CustomPactType): CustomPactProgression => {
   let parsed: ParsedJSON | undefined;
   const value = customPactType.setting.get();

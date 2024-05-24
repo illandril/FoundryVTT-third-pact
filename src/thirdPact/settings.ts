@@ -14,11 +14,11 @@ const onChange = () => {
 };
 
 const customPactTypeIDs = ['a', 'b', 'c'] as const;
-type CustomPactTypeID = typeof customPactTypeIDs[number];
+type CustomPactTypeID = (typeof customPactTypeIDs)[number];
 
 export type CustomPactType = {
-  key: `illandril_custompact_${CustomPactTypeID}`
-  setting: ReturnType<typeof module.settings.register<string>>
+  key: `illandril_custompact_${CustomPactTypeID}`;
+  setting: ReturnType<typeof module.settings.register<string>>;
 };
 
 const setupCustomPactType = (type: CustomPactTypeID): CustomPactType => {
@@ -32,11 +32,7 @@ const setupCustomPactType = (type: CustomPactTypeID): CustomPactType => {
   };
 };
 
-export const customPactTypes = [
-  setupCustomPactType('a'),
-  setupCustomPactType('b'),
-  setupCustomPactType('c'),
-] as const;
+export const customPactTypes = [setupCustomPactType('a'), setupCustomPactType('b'), setupCustomPactType('c')] as const;
 
 export const roundingMode = module.settings.register('roundingMode', String, 'standard', {
   hasHint: true,

@@ -30,7 +30,7 @@ it.each([
   '[{"slots":1,"spellLevel":1}',
 
   // `'` instead of `"`
-  '[{\'slots\':1,\'spellLevel\':1}]',
+  "[{'slots':1,'spellLevel':1}]",
 ])('fails gracefully for non-JSON definitions (%j)', (definition) => {
   const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
 
@@ -44,7 +44,7 @@ it.each([
 
   expect(errorSpy).toHaveBeenCalledTimes(1);
   expect(errorSpy).toHaveBeenCalledWith(
-    expect.stringContaining('Illandril\'s Pact Slot Third Caster'),
+    expect.stringContaining("Illandril's Pact Slot Third Caster"),
     expect.stringContaining('background-color'),
     'Error parsing custom Pact options',
     'illandril_custompact_a',
@@ -94,16 +94,18 @@ it.each([0, -1, -5, -10])('fails gracefully if type class level is %i', (level) 
 });
 
 it('gracefully ignores missing data for levels', () => {
-  customPactTypes[0].setting.set(JSON.stringify([
-    { spellLevel: 1, slots: 2 }, // 1
-    { spellLevel: 3, slots: 4 }, // 2
-    [], // 3
-    '', // 4
-    {}, // 5
-    { spellLevel: 5 }, // 6
-    { slots: 6 }, // 7
-    { spellLevel: 7, slots: 8 }, // 8
-  ]));
+  customPactTypes[0].setting.set(
+    JSON.stringify([
+      { spellLevel: 1, slots: 2 }, // 1
+      { spellLevel: 3, slots: 4 }, // 2
+      [], // 3
+      '', // 4
+      {}, // 5
+      { spellLevel: 5 }, // 6
+      { slots: 6 }, // 7
+      { spellLevel: 7, slots: 8 }, // 8
+    ]),
+  );
 
   const spells: Spells = { pact: {} };
 
@@ -154,7 +156,9 @@ it('gracefully ignores missing data for levels', () => {
 });
 
 it('uses last specified level if all levels not included', () => {
-  customPactTypes[0].setting.set('[{"spellLevel": 1, "slots":1},{"spellLevel": 2, "slots":2},{"spellLevel": 3, "slots":3}]');
+  customPactTypes[0].setting.set(
+    '[{"spellLevel": 1, "slots":1},{"spellLevel": 2, "slots":2},{"spellLevel": 3, "slots":3}]',
+  );
   const spells: Spells = { pact: {} };
 
   calculateCustomPactSlots(spells, 15, customPactTypes[0]);
@@ -171,7 +175,6 @@ describe('every level different', () => {
     });
     customPactType.setting.set(JSON.stringify(definition));
   });
-
 
   describe.each([
     [1, 1, 2],
@@ -248,23 +251,26 @@ describe('every level different', () => {
       expect(spells.pact?.value).toBe(expectedSlotCount);
     });
 
-    it.each([0, 1, 2, 3, 4])('leaves pact.value (%i) unchanged when it is below or equal to the expectedSlotCount', (value) => {
-      const spells: Spells = {
-        pact: {
-          level: 0,
-          max: 0,
-          value,
-        },
-      };
+    it.each([0, 1, 2, 3, 4])(
+      'leaves pact.value (%i) unchanged when it is below or equal to the expectedSlotCount',
+      (value) => {
+        const spells: Spells = {
+          pact: {
+            level: 0,
+            max: 0,
+            value,
+          },
+        };
 
-      calculateCustomPactSlots(spells, level, customPactType);
+        calculateCustomPactSlots(spells, level, customPactType);
 
-      if (value < expectedSlotCount) {
-        expect(spells.pact?.value).toBe(value);
-      } else {
-        expect(spells.pact?.value).toBe(expectedSlotCount);
-      }
-    });
+        if (value < expectedSlotCount) {
+          expect(spells.pact?.value).toBe(value);
+        } else {
+          expect(spells.pact?.value).toBe(expectedSlotCount);
+        }
+      },
+    );
 
     it('sets pact.value to 0 when it is undefined', () => {
       const spells: Spells = {
@@ -298,9 +304,11 @@ describe('every level different', () => {
 describe('requested class definitions', () => {
   const customPactType = customPactTypes[0];
 
-  describe('justinpurdy\'s class', () => {
+  describe("justinpurdy's class", () => {
     beforeAll(() => {
-      customPactType.setting.set('[{"slots":1,"spellLevel":1},{"slots":2,"spellLevel":1},{"slots":2,"spellLevel":1},{"slots":2,"spellLevel":2},{"slots":3,"spellLevel":2},{"slots":3,"spellLevel":3},{"slots":3,"spellLevel":3},{"slots":3,"spellLevel":3},{"slots":3,"spellLevel":4},{"slots":3,"spellLevel":4},{"slots":4,"spellLevel":4},{"slots":4,"spellLevel":4},{"slots":4,"spellLevel":4},{"slots":4,"spellLevel":5},{"slots":4,"spellLevel":5},{"slots":4,"spellLevel":5},{"slots":5,"spellLevel":5},{"slots":5,"spellLevel":5},{"slots":5,"spellLevel":5},{"slots":5,"spellLevel":5}]');
+      customPactType.setting.set(
+        '[{"slots":1,"spellLevel":1},{"slots":2,"spellLevel":1},{"slots":2,"spellLevel":1},{"slots":2,"spellLevel":2},{"slots":3,"spellLevel":2},{"slots":3,"spellLevel":3},{"slots":3,"spellLevel":3},{"slots":3,"spellLevel":3},{"slots":3,"spellLevel":4},{"slots":3,"spellLevel":4},{"slots":4,"spellLevel":4},{"slots":4,"spellLevel":4},{"slots":4,"spellLevel":4},{"slots":4,"spellLevel":5},{"slots":4,"spellLevel":5},{"slots":4,"spellLevel":5},{"slots":5,"spellLevel":5},{"slots":5,"spellLevel":5},{"slots":5,"spellLevel":5},{"slots":5,"spellLevel":5}]',
+      );
     });
 
     describe.each([
@@ -356,9 +364,11 @@ describe('requested class definitions', () => {
     });
   });
 
-  describe('beorod\'s class', () => {
+  describe("beorod's class", () => {
     beforeAll(() => {
-      customPactType.setting.set('[{"slots":0,"spellLevel":1},{"slots":1,"spellLevel":1},{"slots":1,"spellLevel":1},{"slots":1,"spellLevel":1},{"slots":2,"spellLevel":2},{"slots":2,"spellLevel":2},{"slots":2,"spellLevel":2},{"slots":2,"spellLevel":2},{"slots":2,"spellLevel":3},{"slots":2,"spellLevel":3},{"slots":2,"spellLevel":3},{"slots":2,"spellLevel":3},{"slots":3,"spellLevel":4},{"slots":3,"spellLevel":4},{"slots":3,"spellLevel":4},{"slots":3,"spellLevel":4},{"slots":3,"spellLevel":5},{"slots":3,"spellLevel":5},{"slots":3,"spellLevel":5},{"slots":3,"spellLevel":5}]');
+      customPactType.setting.set(
+        '[{"slots":0,"spellLevel":1},{"slots":1,"spellLevel":1},{"slots":1,"spellLevel":1},{"slots":1,"spellLevel":1},{"slots":2,"spellLevel":2},{"slots":2,"spellLevel":2},{"slots":2,"spellLevel":2},{"slots":2,"spellLevel":2},{"slots":2,"spellLevel":3},{"slots":2,"spellLevel":3},{"slots":2,"spellLevel":3},{"slots":2,"spellLevel":3},{"slots":3,"spellLevel":4},{"slots":3,"spellLevel":4},{"slots":3,"spellLevel":4},{"slots":3,"spellLevel":4},{"slots":3,"spellLevel":5},{"slots":3,"spellLevel":5},{"slots":3,"spellLevel":5},{"slots":3,"spellLevel":5}]',
+      );
     });
 
     describe.each([

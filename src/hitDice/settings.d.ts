@@ -1,9 +1,9 @@
 declare global {
   namespace ClientSettings {
     interface Values {
-      'illandril-third-pact.hitDice-d20': boolean
+      'illandril-third-pact.hitDice-d20': boolean;
     }
   }
 }
 
-export {};
+export type {};

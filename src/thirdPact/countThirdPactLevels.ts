@@ -31,7 +31,7 @@ const countThirdPactLevels = (actor: dnd5e.documents.Actor5e, roundingMode: Roun
 export default countThirdPactLevels;
 
 const roundThirdLevels = (isMultiClass: boolean, levels: number, mode: RoundingMode) => {
-  let roundDown;
+  let roundDown: boolean;
   switch (mode) {
     case 'down':
       roundDown = true;
@@ -48,4 +48,3 @@ const roundThirdLevels = (isMultiClass: boolean, levels: number, mode: RoundingM
   }
   return Math.ceil(levels / 3);
 };
-

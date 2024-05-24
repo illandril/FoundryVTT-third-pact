@@ -1,11 +1,7 @@
+type Callback = (levels: number, progression: keyof dnd5e.config.spellProgression) => boolean;
 
-type Callback = (
-  levels: number,
-  progression: keyof dnd5e.config.spellProgression,
-) => boolean;
-
-const someSpellcastingClass = (actor: dnd5e.documents.Actor5e, fn: Callback) => actor
-  .items.some((item) => {
+const someSpellcastingClass = (actor: dnd5e.documents.Actor5e, fn: Callback) =>
+  actor.items.some((item) => {
     if (item.type === 'class') {
       const progression = item.spellcasting?.progression;
       if (progression) {

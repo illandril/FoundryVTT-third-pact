@@ -2,12 +2,16 @@ import * as classes from '../tests/data/classes';
 
 jest.mock('./derivePactSlots');
 
-
 const basePrepareDerivedData = jest.fn();
 const baseRender = jest.fn();
 
-class MockActor5e {
-  constructor(public type: string, public items: dnd5e.documents.Item5e[]) {}
+class Actor5e {
+  constructor(
+    public type: string,
+    public items: dnd5e.documents.Item5e[],
+  ) {
+    // Nothing to initialize except the public variables
+  }
 
   prepareDerivedData(...args: unknown[]) {
     basePrepareDerivedData(this, ...args);
@@ -19,7 +23,7 @@ class MockActor5e {
 }
 
 const getMockActor = (index: number) => {
-  return (game.actors as unknown as MockActor5e[])[index];
+  return (game.actors as unknown as Actor5e[])[index];
 };
 
 let derivePactSlots: jest.Mock;
@@ -29,17 +33,16 @@ beforeEach(async () => {
   // basePrepareDerivedData);
   // baseRender = jest.fn();
 
-
   dnd5e.documents = {
-    Actor5e: MockActor5e,
+    Actor5e,
   } as unknown as typeof dnd5e.documents;
 
-  (game as unknown as { actors: MockActor5e[] }).actors = [
-    new MockActor5e('npc', []),
-    new MockActor5e('character', [classes.fullPact(1), classes.thirdPact(3)]),
-    new MockActor5e('npc', [classes.fullPact(1), classes.thirdPact(3)]),
-    new MockActor5e('character', [classes.fullCaster(5)]),
-    new MockActor5e('character', [classes.customPactA(5)]),
+  (game as unknown as { actors: Actor5e[] }).actors = [
+    new Actor5e('npc', []),
+    new Actor5e('character', [classes.fullPact(1), classes.thirdPact(3)]),
+    new Actor5e('npc', [classes.fullPact(1), classes.thirdPact(3)]),
+    new Actor5e('character', [classes.fullCaster(5)]),
+    new Actor5e('character', [classes.customPactA(5)]),
   ];
 
   derivePactSlots = jest.mocked((await import('./derivePactSlots')).default);

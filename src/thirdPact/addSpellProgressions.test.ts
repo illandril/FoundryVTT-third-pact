@@ -13,9 +13,15 @@ it('adds third pact types on init', () => {
   const updatedProgressions = Object.keys(dnd5e.config.spellProgression).length;
 
   expect(dnd5e.config.spellProgression.illandril_thirdpact).toBe('mock-localize[illandril-third-pact.thirdpact]');
-  expect(dnd5e.config.spellProgression.illandril_custompact_a).toBe('mock-localize[illandril-third-pact.setting.illandril_custompact_a.label]');
-  expect(dnd5e.config.spellProgression.illandril_custompact_b).toBe('mock-localize[illandril-third-pact.setting.illandril_custompact_b.label]');
-  expect(dnd5e.config.spellProgression.illandril_custompact_c).toBe('mock-localize[illandril-third-pact.setting.illandril_custompact_c.label]');
+  expect(dnd5e.config.spellProgression.illandril_custompact_a).toBe(
+    'mock-localize[illandril-third-pact.setting.illandril_custompact_a.label]',
+  );
+  expect(dnd5e.config.spellProgression.illandril_custompact_b).toBe(
+    'mock-localize[illandril-third-pact.setting.illandril_custompact_b.label]',
+  );
+  expect(dnd5e.config.spellProgression.illandril_custompact_c).toBe(
+    'mock-localize[illandril-third-pact.setting.illandril_custompact_c.label]',
+  );
 
   expect(updatedProgressions).toBe(initialProgressions + 4);
 });

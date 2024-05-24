@@ -13,11 +13,9 @@ module.settings.register('hitDice-d20', Boolean, false, {
         module.logger.info('Enabling d20');
         dnd5e.config.hitDieTypes.push(dX);
       }
-    } else {
-      if (dIndex !== -1) {
-        module.logger.info('Disabling d20');
-        dnd5e.config.hitDieTypes.splice(dIndex, 1);
-      }
+    } else if (dIndex !== -1) {
+      module.logger.info('Disabling d20');
+      dnd5e.config.hitDieTypes.splice(dIndex, 1);
     }
   },
   callOnChangeOnInit: true,

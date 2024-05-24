@@ -90,11 +90,7 @@ describe('hit-dice', () => {
     expect(dnd5e.config.hitDieTypes).toEqual(['d4', 'd6', 'd8', 'd10', 'd12', 'd20']);
   });
 
-  it.each([
-    undefined,
-    null,
-    {},
-  ])('logs an error if hitDieTypes is not an array (%j)', (value) => {
+  it.each([undefined, null, {}])('logs an error if hitDieTypes is not an array (%j)', (value) => {
     (dnd5e.config as Record<string, unknown>).hitDieTypes = value;
     const errorSpy = jest.spyOn(console, 'error').mockImplementation(() => undefined);
 

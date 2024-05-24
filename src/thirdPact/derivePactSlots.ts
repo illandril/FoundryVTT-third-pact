@@ -7,7 +7,7 @@ import someSpellcastingClass from './someSpellcastingClass';
 
 const derivePactSlots = (actor: dnd5e.documents.Actor5e) => {
   const { name, type } = actor;
-  module.logger.debug(`Deriving pact slots`, type, name, actor.id);
+  module.logger.debug('Deriving pact slots', type, name, actor.id);
   if (type !== 'character') {
     // Third-pact caster calculation is only supported for players
     return;
@@ -35,7 +35,7 @@ const derivePactSlots = (actor: dnd5e.documents.Actor5e) => {
 
   const pactLevels = countThirdPactLevels(actor, roundingMode.get());
   if (pactLevels > 0) {
-    module.logger.debug(`Actor has levels in at least one third-caster pact class`, name, actor.id);
+    module.logger.debug('Actor has levels in at least one third-caster pact class', name, actor.id);
     calculatePactSlots(spells, pactLevels);
   }
 };
