@@ -24,5 +24,10 @@
     ]
   },
   "license": "LICENSE",
-  "media": []
+  "media": [
+    {
+      "type": "setup",
+      "url": "https://github.com/illandril/FoundryVTT-third-pact/raw/main/screenshots/setup.png"
+    }
+  ]
 }
