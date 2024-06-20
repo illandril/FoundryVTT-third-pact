@@ -1,12 +1,9 @@
 import * as classes from '../tests/data/classes';
 import { mockActor } from '../tests/mockHelpers';
 import calculateCustomPactSlots from './calculateCustomPactSlots';
-import calculatePactSlots from './calculatePactSlots';
 import derivePactSlots from './derivePactSlots';
-import { roundingMode } from './settings';
 
 jest.mock('./calculateCustomPactSlots');
-jest.mock('./calculatePactSlots');
 
 beforeAll(() => {
   Hooks.callAll('init');
@@ -33,7 +30,6 @@ it('does nothing for non-character actors', () => {
   derivePactSlots(actor);
 
   expect(calculateCustomPactSlots).not.toHaveBeenCalled();
-  expect(calculatePactSlots).not.toHaveBeenCalled();
 });
 
 it('does nothing for non-spellcasters', () => {
@@ -42,7 +38,6 @@ it('does nothing for non-spellcasters', () => {
   derivePactSlots(actor);
 
   expect(calculateCustomPactSlots).not.toHaveBeenCalled();
-  expect(calculatePactSlots).not.toHaveBeenCalled();
 });
 
 it('does nothing for full-pact only spellcasters', () => {
@@ -51,7 +46,6 @@ it('does nothing for full-pact only spellcasters', () => {
   derivePactSlots(actor);
 
   expect(calculateCustomPactSlots).not.toHaveBeenCalled();
-  expect(calculatePactSlots).not.toHaveBeenCalled();
 });
 
 it('does nothing for actors missing spells data', () => {
@@ -60,7 +54,6 @@ it('does nothing for actors missing spells data', () => {
   derivePactSlots(actor);
 
   expect(calculateCustomPactSlots).not.toHaveBeenCalled();
-  expect(calculatePactSlots).not.toHaveBeenCalled();
 });
 
 it('calls only calculateCustomPactSlots for single-class custom pact casters', () => {
@@ -68,7 +61,6 @@ it('calls only calculateCustomPactSlots for single-class custom pact casters', (
 
   derivePactSlots(actor);
 
-  expect(calculatePactSlots).not.toHaveBeenCalled();
   expect(calculateCustomPactSlots).toHaveBeenCalledTimes(1);
   expect(calculateCustomPactSlots).toHaveBeenCalledWith(
     {
@@ -91,7 +83,6 @@ it('calls only calculateCustomPactSlots with the first custom pact class for mul
 
   derivePactSlots(actor);
 
-  expect(calculatePactSlots).not.toHaveBeenCalled();
   expect(calculateCustomPactSlots).toHaveBeenCalledTimes(1);
   expect(calculateCustomPactSlots).toHaveBeenCalledWith(
     {
@@ -106,99 +97,10 @@ it('calls only calculateCustomPactSlots with the first custom pact class for mul
   );
 });
 
-it('calls only calculatePactSlots for single-class third pact casters (level = 9)', () => {
+it('does not call calculateCustomPactSlots for single-class third pact casters (level = 9)', () => {
   const actor = mockActor([classes.thirdPact(9)], actorProps('character'));
 
   derivePactSlots(actor);
 
   expect(calculateCustomPactSlots).not.toHaveBeenCalled();
-  expect(calculatePactSlots).toHaveBeenCalledTimes(1);
-  expect(calculatePactSlots).toHaveBeenCalledWith(
-    {
-      pact: {
-        level: 4,
-        max: 3,
-        value: 2,
-      },
-    },
-    3,
-  );
-});
-
-it('calls only calculatePactSlots for single-class third pact casters (level = 8, round = down)', () => {
-  roundingMode.set('down');
-  const actor = mockActor([classes.thirdPact(8)], actorProps('character'));
-
-  derivePactSlots(actor);
-
-  expect(calculateCustomPactSlots).not.toHaveBeenCalled();
-  expect(calculatePactSlots).toHaveBeenCalledTimes(1);
-  expect(calculatePactSlots).toHaveBeenCalledWith(
-    {
-      pact: {
-        level: 4,
-        max: 3,
-        value: 2,
-      },
-    },
-    2,
-  );
-});
-
-it('calls only calculatePactSlots for single-class third pact casters (level = 8, round = up)', () => {
-  roundingMode.set('up');
-  const actor = mockActor([classes.thirdPact(8)], actorProps('character'));
-
-  derivePactSlots(actor);
-
-  expect(calculateCustomPactSlots).not.toHaveBeenCalled();
-  expect(calculatePactSlots).toHaveBeenCalledTimes(1);
-  expect(calculatePactSlots).toHaveBeenCalledWith(
-    {
-      pact: {
-        level: 4,
-        max: 3,
-        value: 2,
-      },
-    },
-    3,
-  );
-});
-
-it('calls only calculatePactSlots for multi-class third pact casters (level = 2, 5, 8)', () => {
-  const actor = mockActor([classes.thirdPact(2), classes.thirdPact(5), classes.thirdPact(8)], actorProps('character'));
-
-  derivePactSlots(actor);
-
-  expect(calculateCustomPactSlots).not.toHaveBeenCalled();
-  expect(calculatePactSlots).toHaveBeenCalledTimes(1);
-  expect(calculatePactSlots).toHaveBeenCalledWith(
-    {
-      pact: {
-        level: 4,
-        max: 3,
-        value: 2,
-      },
-    },
-    5,
-  );
-});
-
-it('calls only calculatePactSlots for multi-class full + third pact casters (level = 4 full, 9 third)', () => {
-  const actor = mockActor([classes.fullPact(4), classes.thirdPact(9)], actorProps('character'));
-
-  derivePactSlots(actor);
-
-  expect(calculateCustomPactSlots).not.toHaveBeenCalled();
-  expect(calculatePactSlots).toHaveBeenCalledTimes(1);
-  expect(calculatePactSlots).toHaveBeenCalledWith(
-    {
-      pact: {
-        level: 4,
-        max: 3,
-        value: 2,
-      },
-    },
-    7,
-  );
 });

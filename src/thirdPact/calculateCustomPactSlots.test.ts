@@ -44,7 +44,7 @@ it.each([
 
   expect(errorSpy).toHaveBeenCalledTimes(1);
   expect(errorSpy).toHaveBeenCalledWith(
-    expect.stringContaining("Illandril's Pact Slot Third Caster"),
+    expect.stringContaining("Illandril's Character Class Enhancements"),
     expect.stringContaining('background-color'),
     'Error parsing custom Pact options',
     'illandril_custompact_a',

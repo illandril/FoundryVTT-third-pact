@@ -1,8 +1,6 @@
 import module from '../module';
 import calculateCustomPactSlots from './calculateCustomPactSlots';
-import calculatePactSlots from './calculatePactSlots';
-import countThirdPactLevels from './countThirdPactLevels';
-import { customPactTypes, roundingMode } from './settings';
+import { customPactTypes } from './settings';
 import someSpellcastingClass from './someSpellcastingClass';
 
 const derivePactSlots = (actor: dnd5e.documents.Actor5e) => {
@@ -20,7 +18,7 @@ const derivePactSlots = (actor: dnd5e.documents.Actor5e) => {
     return;
   }
 
-  const hasCustomPactClass = someSpellcastingClass(actor, (levels, progression) => {
+  someSpellcastingClass(actor, (levels, progression) => {
     const customPactType = customPactTypes.find(({ key }) => key === progression);
     if (customPactType) {
       module.logger.debug('Actor has a custom pact slot class', name, actor.id);
@@ -29,15 +27,6 @@ const derivePactSlots = (actor: dnd5e.documents.Actor5e) => {
     }
     return false;
   });
-  if (hasCustomPactClass) {
-    return;
-  }
-
-  const pactLevels = countThirdPactLevels(actor, roundingMode.get());
-  if (pactLevels > 0) {
-    module.logger.debug('Actor has levels in at least one third-caster pact class', name, actor.id);
-    calculatePactSlots(spells, pactLevels);
-  }
 };
 
 export default derivePactSlots;

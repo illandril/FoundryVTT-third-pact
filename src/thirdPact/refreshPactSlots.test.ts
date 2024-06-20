@@ -43,6 +43,7 @@ beforeEach(async () => {
     new Actor5e('npc', [classes.fullPact(1), classes.thirdPact(3)]),
     new Actor5e('character', [classes.fullCaster(5)]),
     new Actor5e('character', [classes.customPactA(5)]),
+    new Actor5e('character', [classes.nonCaster(5)]),
   ];
 
   derivePactSlots = jest.mocked((await import('./derivePactSlots')).default);
@@ -50,18 +51,26 @@ beforeEach(async () => {
   Hooks.callAll('init');
 });
 
-it('refreshes on ready', () => {
+it('refreshes all character spellcasters on ready', () => {
   Hooks.callAll('ready');
-  expect(derivePactSlots).toHaveBeenCalledTimes(2);
-  expect(derivePactSlots).toHaveBeenCalledWith(getMockActor(1));
+  // prepareDerivedData called for all spellcasters
+  expect(basePrepareDerivedData).toHaveBeenCalledTimes(3);
+  expect(basePrepareDerivedData).toHaveBeenCalledWith(getMockActor(1));
+  expect(basePrepareDerivedData).toHaveBeenCalledWith(getMockActor(3));
+  expect(basePrepareDerivedData).toHaveBeenCalledWith(getMockActor(4));
+
+  // Derive only called for custom pact casters
+  expect(derivePactSlots).toHaveBeenCalledTimes(1);
   expect(derivePactSlots).toHaveBeenCalledWith(getMockActor(4));
-  expect(baseRender).toHaveBeenCalledTimes(2);
+
+  // render called for all spellcasters
+  expect(baseRender).toHaveBeenCalledTimes(3);
   expect(baseRender).toHaveBeenCalledWith(getMockActor(1), false);
+  expect(baseRender).toHaveBeenCalledWith(getMockActor(3), false);
   expect(baseRender).toHaveBeenCalledWith(getMockActor(4), false);
-  expect(basePrepareDerivedData).not.toHaveBeenCalled();
 });
 
-it('refreshes on prepareDerivedData', () => {
+it('refreshes custom pact classes on prepareDerivedData', () => {
   Hooks.callAll('ready');
   basePrepareDerivedData.mockClear();
   derivePactSlots.mockClear();
@@ -72,29 +81,43 @@ it('refreshes on prepareDerivedData', () => {
   expect(derivePactSlots).not.toHaveBeenCalled();
   expect(baseRender).not.toHaveBeenCalled();
 
-  getMockActor(1).prepareDerivedData();
+  getMockActor(4).prepareDerivedData();
 
-  expect(derivePactSlots).toHaveBeenCalledWith(getMockActor(1));
+  expect(derivePactSlots).toHaveBeenCalledWith(getMockActor(4));
   expect(derivePactSlots).toHaveBeenCalledTimes(1);
   expect(basePrepareDerivedData).toHaveBeenCalledTimes(1);
-  expect(basePrepareDerivedData).toHaveBeenCalledWith(getMockActor(1));
+  expect(basePrepareDerivedData).toHaveBeenCalledWith(getMockActor(4));
   expect(baseRender).not.toHaveBeenCalled();
 });
 
-it('refreshes on setting changes', async () => {
+it('refreshes all character spellcasters on setting changes', async () => {
   const customPactTypes = (await import('./settings')).customPactTypes;
-  // Sanity check that the initialization didn't trigger any calls
+
+  Hooks.callAll('ready');
+  basePrepareDerivedData.mockClear();
+  derivePactSlots.mockClear();
+  baseRender.mockClear();
+
+  // Sanity check the clears
   expect(basePrepareDerivedData).not.toHaveBeenCalled();
   expect(derivePactSlots).not.toHaveBeenCalled();
   expect(baseRender).not.toHaveBeenCalled();
 
   customPactTypes[0].setting.set(JSON.stringify([]));
 
-  expect(derivePactSlots).toHaveBeenCalledTimes(2);
-  expect(derivePactSlots).toHaveBeenCalledWith(getMockActor(1));
+  // prepareDerivedData called for all spellcasters
+  expect(basePrepareDerivedData).toHaveBeenCalledTimes(3);
+  expect(basePrepareDerivedData).toHaveBeenCalledWith(getMockActor(1));
+  expect(basePrepareDerivedData).toHaveBeenCalledWith(getMockActor(3));
+  expect(basePrepareDerivedData).toHaveBeenCalledWith(getMockActor(4));
+
+  // Derive only called for custom pact casters
+  expect(derivePactSlots).toHaveBeenCalledTimes(1);
   expect(derivePactSlots).toHaveBeenCalledWith(getMockActor(4));
-  expect(baseRender).toHaveBeenCalledTimes(2);
+
+  // render called for all spellcasters
+  expect(baseRender).toHaveBeenCalledTimes(3);
   expect(baseRender).toHaveBeenCalledWith(getMockActor(1), false);
+  expect(baseRender).toHaveBeenCalledWith(getMockActor(3), false);
   expect(baseRender).toHaveBeenCalledWith(getMockActor(4), false);
-  expect(basePrepareDerivedData).not.toHaveBeenCalled();
 });

@@ -98,7 +98,7 @@ describe('hit-dice', () => {
 
     expect(errorSpy).toHaveBeenCalledTimes(1);
     expect(errorSpy).toHaveBeenCalledWith(
-      expect.stringMatching(/Illandril's Pact Slot Third Caster/),
+      expect.stringMatching(/Illandril's Character Class Enhancements/),
       expect.stringMatching(/background/),
       'Cannot update hit dice - dnd5e.config.hitDieTypes was an unexpected type',
     );

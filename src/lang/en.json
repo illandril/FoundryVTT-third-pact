@@ -1,23 +1,46 @@
 {
   "illandril-third-pact": {
-    "thirdpact": "Third Caster (Pact)",
+    "progression": {
+      "leveled": {
+        "Quarter": "(illandril) Quarter Caster",
+        "TwoThirds": "(illandril) Two Thirds Caster",
+        "ThreeQuarters": "(illandril) Three Quarters Caster"
+      },
+      "pact": {
+        "PactQuarter": "(illandril) Quarter Caster (Pact Magic)",
+        "_thirdpact": "(illandril) Third Caster (Pact Magic)",
+        "PactHalf": "(illandril) Half Caster (Pact Magic)",
+        "PactTwoThirds": "(illandril) Two Thirds Caster (Pact Magic)",
+        "PactThreeQuarters": "(illandril) Three Quarters Caster (Pact Magic)"
+      }
+    },
     "setting": {
       "debug": {
         "label": "Debug Mode",
         "hint": "Leave this disabled unless specifically asked to enable it by Illandril (otherwise, it will slow things down)."
       },
-      "roundingMode": {
-        "label": "Rounding Mode",
-        "hint": "Standard Rounding: Round down when multiclassing with other Pact caster classes, round up otherwise (the same as non-Pact Third Casters).",
+      "rounding": {
         "choice": {
           "standard": "Standard Rounding",
           "up": "Always Round Up",
-          "down": "Always Round Down"
+          "down": "Always Round Down",
+          "downMin1": "Round Down, Minimum 1"
         }
       },
-      "illandril_custompact_a.label": "Custom Pact Caster A",
-      "illandril_custompact_b.label": "Custom Pact Caster B",
-      "illandril_custompact_c.label": "Custom Pact Caster C",
+      "pactRoundingMode": {
+        "label": "Pact Rounding Mode",
+        "hint": "Standard Rounding: Round down when multiclassing with other Pact caster classes, otherwise round up."
+      },
+      "leveledRoundingMode": {
+        "label": "Leveled Rounding Mode",
+        "hint": "Standard Rounding: Round down when multiclassing with other leveled caster classes, otherwise round up. System Rounding: Let the dnd5e system decide how to round (it will likely round the same way as 'Standard Rounding')",
+        "choice": {
+          "system": "System Rounding"
+        }
+      },
+      "illandril_custompact_a.label": "(illandril) Custom Pact Caster A",
+      "illandril_custompact_b.label": "(illandril) Custom Pact Caster B",
+      "illandril_custompact_c.label": "(illandril) Custom Pact Caster C",
       "hitDice-d20.label": "Hit Dice: Include d20",
       "menu": {
         "customPacts": {

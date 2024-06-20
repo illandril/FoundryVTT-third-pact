@@ -34,8 +34,41 @@ const setupCustomPactType = (type: CustomPactTypeID): CustomPactType => {
 
 export const customPactTypes = [setupCustomPactType('a'), setupCustomPactType('b'), setupCustomPactType('c')] as const;
 
-export const roundingMode = module.settings.register('roundingMode', String, 'standard', {
+const ROUNDING_MODES: RoundingMode[] = ['standard', 'down', 'downMin1', 'up'];
+const isRoundingMode = (value: string): value is RoundingMode => {
+  return ROUNDING_MODES.includes(value as RoundingMode);
+};
+const ROUNDING_CHOICES = Object.fromEntries(
+  ROUNDING_MODES.map((value) => [value, `${module.id}.setting.rounding.choice.${value}`] as const),
+) as Record<RoundingMode, string>;
+
+export const pactRoundingMode = module.settings.register<RoundingMode>('pactRoundingMode', String, 'standard', {
   hasHint: true,
-  choices: ['standard', 'down', 'up'],
+  choices: ROUNDING_CHOICES,
   onChange,
+});
+
+export const leveledRoundingMode = module.settings.register<RoundingMode | 'system'>(
+  'leveledRoundingMode',
+  String,
+  'system',
+  {
+    hasHint: true,
+    choices: {
+      system: `${module.id}.setting.leveledRoundingMode.choice.system`,
+      ...ROUNDING_CHOICES,
+    },
+    onChange,
+  },
+);
+
+const legacyRoundingMode = module.settings.register('roundingMode', String, 'MIGRATED', {
+  config: false,
+});
+Hooks.on('ready', () => {
+  const legacyValue = legacyRoundingMode.get();
+  if (isRoundingMode(legacyValue)) {
+    pactRoundingMode.set(legacyValue);
+    legacyRoundingMode.set('MIGRATED');
+  }
 });
