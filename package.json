@@ -1,6 +1,6 @@
 {
   "name": "@illandril/foundryvtt-third-pact",
-  "version": "2.2.3",
+  "version": "3.0.0",
   "description": "Illandril's Character Class Enhancements (5e): Adds support for alternative Spell Progression types (including Third Caster Pact Magic, Three Quarters Caster, and more), and allows a d20 option for hit dice.",
   "type": "module",
   "scripts": {
